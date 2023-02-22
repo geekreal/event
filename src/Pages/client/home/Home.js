@@ -46,7 +46,7 @@ const Home = () => {
         {/* <Body /> */}
         
         {/* /footer */}
-        {/* <Footer/> */}
+        <Footer/>
         
       </Box>
     </Box>

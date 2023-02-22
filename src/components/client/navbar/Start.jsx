@@ -51,6 +51,8 @@ import { orange, red } from '@mui/material/colors';
 import { fontSize } from '@mui/system';
 import { useEffect } from 'react';
 import { Fragment } from 'react';
+import MapDrawer from '../../modal/MapDrawer';
+import SwipeableEdgeDrawer from '../../modal/SwipeableEdgeDrawer';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -83,7 +85,6 @@ const Start = () => {
     const [loadSkeleton, setLoadSkeleton] = useState(true);
 
     const [openMapModal, setOpenMapModal] = useState(false);
-  
     // const setOpenMapModal(true) = () => {
     //   setOpenMapModal(true);
     // };
@@ -195,10 +196,10 @@ const Start = () => {
                       marginBottom: 2,
                     }}> */}
                     <Grid item className={classes.actionTitleGrid} sx={{display: 'block'}} direction='row'>
-                    <Button variant='contained' size='large' component='div' sx={{margin: (1,0,1,1),  background:"#fcaf3c"}} onClick={showSearch} className={classes.actionBtn}>
+                     <Button variant='contained' size='large' component='div' sx={{margin: (1,0,1,1),  background:"#fcaf3c"}} onClick={showSearch} className={classes.actionBtn}>
                       <Person2Sharp sx={{ fontSize: 30 , marginRight :  theme.spacing(2)}} />
                       <Typography variant='btnText' component='div' className={classes.headerBtnText} sx={{lineHeight: 1}}>
-                        Mes stars en prestation
+                        Mes stars
                       </Typography>
                     </Button> 
                     <Button variant='contained' size='large' component='div' sx={{margin: (1,0,1,1), background:"#fcaf3c"}} onClick={showSearch} className={classes.actionBtn}>
@@ -207,12 +208,6 @@ const Start = () => {
                         Univers des évènements
                       </Typography>
                     </Button> 
-                    {/* <Button variant='contained' size='large' component='div' sx={{margin: (1,0,1,1), background:"#fcaf3c"}} onClick={showSearch} className={classes.actionBtn}>
-                    <Event sx={{ fontSize: 30 , marginRight :  theme.spacing(2)}} />
-                    <Typography variant='btnText' component='div' className={classes.headerBtnText} sx={{lineHeight: 1}}>
-                        Evènements gratuits
-                      </Typography>
-                    </Button>  */}
                     <Button variant='contained' size='large' component='div' sx={{margin: (1,0,1,1), background:"#fcaf3c"}} onClick={showSearch} className={classes.actionBtn}>
                     <Place sx={{ fontSize: 30 , marginRight :  theme.spacing(2)}}/>
                     <Typography variant='btnText' component='div' className={classes.headerBtnText} sx={{lineHeight: 1}}>
@@ -978,7 +973,9 @@ const Start = () => {
           </div>
       </div>
     </Slide>
-    <MapModal show={openMapModal} close={()=> setOpenMapModal(false)}/> 
+    {/* <MapDrawer/> */}
+    <SwipeableEdgeDrawer open={openMapModal} close={()=> setOpenMapModal(false)}/>
+    {/* <MapModal show={openMapModal} close={()=> setOpenMapModal(false)}/>  */}
     </>
   )
 }
