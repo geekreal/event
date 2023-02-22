@@ -23,24 +23,29 @@ const helvetica = {
 const ClientTheme = createTheme({
   palette: {
     primary: {
-      main: "#172636",
-      main2: "#fcaf3c",
-      main3: "#FFFFFF",
+      main: "#ba0578",
+      main2: "#118678",
     },
     btn: {
-      main: "#172636",
-      main2: "#fcaf3c",
+      main: "#ba0578",
+      main2: "#118678",
+      main3:'#fcaf3c',
     },
     secondary: {
-      main: "#fcaf3c",
+      main: "#ba0578",
+      
+      
     },
     default: {
       main: "black",
     },
     gradient: {
-      main: "linear-gradient(to right, #172636, #172636)",
-      main2: "linear-gradient(to right, #fcaf3c, #fcaf3c)",
-      main3: "linear-gradient(to right, #fcaf3c , #172636)",
+      // ba0578 jaune
+      // 118678 teal
+      main: "linear-gradient(to right, #ba0578, #ba0578)", //jaune
+      main2: "linear-gradient(to right, #118678, #118678)", //teal
+      main3: "linear-gradient(to top, #014255 , #014255, #ba0578)",
+      main4: "#fcaf3c",//jaune
     }
   },//en palette
 

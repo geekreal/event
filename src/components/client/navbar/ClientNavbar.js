@@ -30,13 +30,14 @@ import bgAnim from '../../../assets/client/images/bgAnim.gif';
 import { InputUnstyled } from '@mui/base';
 import CustomHomeInput from './CustomHomeInput';
 import Logo from '../../../assets/client/images/logo-ivinx.png'
+import { useState } from 'react';
 
 const pages = ['ACCUEIL', 'EVENEMENT', 'CATEGORIE'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ClientNavBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -59,7 +60,7 @@ const ClientNavBar = () => {
   return (
     <>
       <AppBar className={classes.appBar} elevation={0} position="static" >
-        <div className={classes.header}>
+        {/* <div className={classes.header}> */}
           <Toolbar className={classes.toolBar}>
             <Typography
               variant="h6"
@@ -74,9 +75,11 @@ const ClientNavBar = () => {
               }}
             >
             {/* <img src={Logo} height={40}></img> */}
-            ivinx
+            <Link to='/event' className={classes.navText}>
+              INVINX
+            </Link>
             </Typography>
-            <Box classeName={classes.menusBox} sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <Box className={classes.menusBox} sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
 
               <IconButton
                 size="large"
@@ -103,7 +106,7 @@ const ClientNavBar = () => {
               >
                 <MenuItem
                   className={classes.mobileMenus} key='Categorie' onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">Categorie</Typography>
+                  <Typography>Categorie</Typography>
                 </MenuItem>
               </Menu>
             </Box>
@@ -155,12 +158,12 @@ const ClientNavBar = () => {
             </Box>
 
               {/* Recherche */}
-            <SearchStyle />
+            {/* <SearchStyle /> */}
 
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
+              <Tooltip title="Menu du site">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar sx={{ background: 'white' }} alt="Logout">
+                  <Avatar sx={{ background: 'white' }} alt="Déconnexion">
                     <PowerSettingsNewRounded sx={{ color: 'primary.main' }} />
                   </Avatar>
 
@@ -188,14 +191,20 @@ const ClientNavBar = () => {
                   </MenuItem>
                 ))} */}
 
-                <MenuItem key='Connexion' onClose={handleCloseUserMenu}>
-                    <Link to='connexion' className={classes.navText} textAlign="center">Connexion</Link>
+                  <MenuItem key='promotion' onClose={handleCloseUserMenu}>
+                    <Link to='/event/action' className={classes.navText}>Promouvoir un évènement</Link>
+                  </MenuItem>
+                  <MenuItem key='Contact' onClose={handleCloseUserMenu}>
+                    <Link to='/event/action' className={classes.navText}>Nous contacter</Link>
+                  </MenuItem>
+                  <MenuItem key='partenariat' onClose={handleCloseUserMenu}>
+                    <Link to='/event/action' className={classes.navText}>Devenir partenaire</Link>
                   </MenuItem>
                   <MenuItem key='Inscription' onClose={handleCloseUserMenu}>
-                    <Link to='inscription' className={classes.navText} textAlign="center">Inscription</Link>
+                    <Link to='inscription' className={classes.navText}>Inscription</Link>
                   </MenuItem>
                   <MenuItem key='Profile' onClose={handleCloseUserMenu}>
-                    <Link to='/profile' className={classes.navText} textAlign="center">Profile</Link>
+                    <Link to='/profile' className={classes.navText}>Profile</Link>
                   </MenuItem>
                   <MenuItem key='Deconnexion' onClose={handleCloseUserMenu}>
                     <Typography textAlign="center">Déconnexion</Typography>
@@ -205,7 +214,7 @@ const ClientNavBar = () => {
             </Box>
           </Toolbar>
         
-        </div>
+        {/* </div> */}
       </AppBar>
     
     </>

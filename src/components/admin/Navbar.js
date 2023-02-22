@@ -139,8 +139,7 @@ export default function MiniDrawer() {
              <div key={index}>
                {text.type === "title"  ? <ListItemText className={classes.section} >
                {/* <Divider className={classes.dividerTop}/> */}
-                  <Typography className={classes.sectionText}
-                  variant="" component="strong">
+                  <Typography className={classes.sectionText} variant="" component="strong">
                       {text.labelTitle} 
                   </Typography> 
                   {/* <Divider className={classes.dividerBottom}/> */}

@@ -30,6 +30,11 @@ import IndexTicket from '../Pages/admin/Events/Tickets/IndexTicket';
 import Select from '../Pages/admin/Events/Tickets/Select';
 import AddGuest from '../Pages/admin/Events/AddGuest';
 
+import Start from '../components/client/navbar/Start';
+import Header from '../components/client/navbar/Header';
+import Home from '../Pages/client/home/Home';
+import Content from '../components/client/Main/Content';
+
 
 // Client 
 
@@ -37,7 +42,11 @@ import AddGuest from '../Pages/admin/Events/AddGuest';
 // routes
 
 const routes = [ 
-    {path: "/", exact: true,  name: 'Accueil'},
+    {path: "/", exact: true,  name: 'Home' },
+    {path: "/event", exact: true,  name: 'Accueil', component : Header},
+    {path: "/event/start", exact: true,  name: 'Start', component: Start},
+    {path: "/event/action", exact: true,  name: 'Start', component: Content},
+
     {path: "/admin", exact: true,  name: 'Admin'},
     {path: "/admin/home", exact: true, name: 'AdminHome', component: Dashboard},
     {path: "/admin-login", exact: true, name: 'AdminLogin' , component: Login},

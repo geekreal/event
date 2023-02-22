@@ -5,17 +5,30 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import { Fade, Grid, Icon, InputAdornment, Paper, Slide, TextField } from '@mui/material';
+import { alpha, Card, CardActions, CardContent, CardHeader, CardMedia, Checkbox, Collapse, Fade, FormControlLabel, FormGroup, Grid, Icon, InputAdornment, Paper, Skeleton, Slide, TextField } from '@mui/material';
+import {styled} from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import animWomen from '../../../assets/client/images/animWomenf.gif';
 import bgAnim from '../../../assets/client/images/bgAnim.gif';
 import { InputUnstyled } from '@mui/base';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { MoreVert, Share , Favorite, ExpandMore, LocationCity, PlaceSharp, AirplaneTicket, GpsFixed, Read, ReadMoreMore, ReadMoreReadMore, ReadMore, BookOnline, MonetizationOn, Padding, Mic, PlaceOutlined, GolfCourse, FmdGood, FmdGoodOutlined, FreeBreakfast, MicExternalOn, Grade, LocalDining } from '@mui/icons-material';
 import moment from 'moment';
 import 'moment/locale/fr';
 import useStyle from './ClientStyle';
+import BodyStyle from './BodyStyle';
 import rond from '../../../assets/client/images/rond.png';
+import citron from '../../../assets/client/images/citron.jpg';
+import affiche from '../../../assets/client/images/affiche.jpg';
+import calendar from '../../../assets/client/images/calendar.jpg';
+import ticket from '../../../assets/client/images/ticket.png';
+import geo1 from '../../../assets/client/images/geo.jpg';
+import geo from '../../../assets/client/images/geo.png';
+import contact from '../../../assets/client/images/contact.png';
+import { Check } from '@mui/icons-material';
+import EventSkelton from './EventSkelton';
+import {motion} from 'framer-motion';
 
 import {
     AccountCircle,
@@ -34,9 +47,26 @@ import {
   import CustomHomeInput from './CustomHomeInput';
 import { theme } from '../../admin/theme';
 import { PositionOptions } from 'mapbox-gl';
+import { orange, red } from '@mui/material/colors';
+import { fontSize } from '@mui/system';
+import { useEffect } from 'react';
+import { Fragment } from 'react';
+import Start from './Start';
+
+const ExpandMoreFunc = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
 
 const Header = () => {
     const classes = useStyle();
+    const classesBody = BodyStyle();
 
     const date = moment().locale('fr').format('dddd');
 
@@ -44,126 +74,79 @@ const Header = () => {
     const showSearch = () =>{
       setShow(prev => !prev) 
     }
-  
-
 
   return (
-    <div className={classes.headerBack}>
-        {/* Bckground */}
-          <Container className={classes.headerSection}>
-            <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
-              <Grid item sx={{textAlign: 'center'}}>
-                <div  className={classes.headerTitle}>
-                  Vous êtes de plus en plus proche du monde.
-                </div>
-                {/* <Typography variant='p' component='div' className={classes.headerDesc}>
-                  Participez à des évènements, des conférences, nouez de nouveaux liens, rejouissez-vous et aprenez!
-                  avec nous le monde est plus proche de vous !
-                </Typography>
-                <Button variant='contained' size='large' component='div' onClick={showSearch} className={classes.headerBtn}>
-                  <Typography variant='btnText' component='div' className={classes.headerBtnText}>
-                     Quoi de neuf aujourd'hui ?
-                  </Typography>
-                </Button>  */}
-              </Grid>
-              {/* <Grid item xs={6}>
-                <Fade in={true} timeout={100000}>
-                  <div>
-                    <Container>
-                      <img className={classes.rond} src={rond} alt="Animation" />
-                    </Container>
+    <>
+    {/* {show && */}
+    <Slide in={true} direction='up' mountOnEnter unmountOnExit> 
+      <div className={classes.imageHeader} >
+        <div  className={classes.headerTitle}>
+          Vous êtes de plus en plus proche du monde.
+        </div>
+        <Grid container className={classesBody.topGridSlide}>
+          <Grid item >
+              <Box sx={{ boxShadow: 4 }} className={classesBody.carrousel}>
+                  <div className={classesBody.slideImg}>
+                      <img className={classesBody.slideImg} src={geo1}/>
                   </div>
-                </Fade>
-              </Grid> */}
-            </Grid >
-          </Container>
+                  <div className={classesBody.slideText}>
+                    <div className={classesBody.slideTitle}>
+                      Choisissez un évènement
+                    </div>
+                      <Typography className={classesBody.slideDesc}>
+                        Des grand évènements jusqu'au petit, vous êtes au courant. Tout se passe ici.
+                        Sur IVINX aucun évènement ne passe inaperçu
+                      </Typography>
+                  </div>
+              </Box>
+          </Grid>
 
-          {/* recherche */}
-        {show && 
-        <Slide in={true} direction='up' mountOnEnter unmountOnExit>
-          <div>
-            <Container className={classes.action}>
-            <Box elevation={6} className={classes.paperAction}>
-              <Grid container spacing={2} className={classes.paperGrid}>
-                <Grid item xs={12} direction='column' className={classes.actionTitleGrid}>
-                  {/* <Typography component='div' className={classes.actionTitle} variant='actionTitle'>
-                    Le monde, plus proche de vous.
-                  </Typography> */}
-                  <Typography sx={{fontSize: 20, color: 'white'}}>
-                    C'est {date}, Que désirez-vous?
-                  </Typography>
-                </Grid>
-                <Grid item className={classes.actionTitleGrid} sx={{display: 'block'}} direction='row'>
-                  <Button variant='contained' size='large' component='div' sx={{margin: (1,0,1,1),}} onClick={showSearch} className={classes.actionBtn}>
-                    <Person2Sharp sx={{ fontSize: 30 , marginRight :  theme.spacing(2)}} />
-                    <Typography variant='btnText' component='div' className={classes.headerBtnText} sx={{lineHeight: 1}}>
-                      Mes stars en prestation
-                    </Typography>
-                  </Button> 
-                  <Button variant='contained' size='large' component='div' sx={{margin: (1,0,1,1),}} onClick={showSearch} className={classes.actionBtn}>
-                    <Celebration sx={{ fontSize: 30 , marginRight :  theme.spacing(2)}} />
-                    <Typography variant='btnText' component='div' className={classes.headerBtnText} sx={{lineHeight: 1}}>
-                      Univers des évènements
-                    </Typography>
-                  </Button> 
-                  {/* <Button variant='contained' size='large' component='div' sx={{margin: (1,0,1,1),}} onClick={showSearch} className={classes.actionBtn}>
-                  <Event sx={{ fontSize: 30 , marginRight :  theme.spacing(2)}} />
-                  <Typography variant='btnText' component='div' className={classes.headerBtnText} sx={{lineHeight: 1}}>
-                      Evènements gratuits
-                    </Typography>
-                  </Button>  */}
-                  <Button variant='contained' size='large' component='div' sx={{margin: (1,0,1,1),}} onClick={showSearch} className={classes.actionBtn}>
-                  <Place sx={{ fontSize: 30 , marginRight :  theme.spacing(2)}} />
-                  <Typography variant='btnText' component='div' className={classes.headerBtnText} sx={{lineHeight: 1}}>
-                      Evènements chez moi
-                    </Typography>
-                  </Button> 
-                </Grid>
-                <Grid item xs={12} className={classes.actionSearch}>               
-                    <CustomHomeInput/>
-                </Grid>
-                <Grid item  >
-                <Container className={classes.actionBtnDiv}>
+          <Grid item >
+              <Box sx={{ boxShadow: 4 }} className={classesBody.carrousel}>
+                  <div className={classesBody.slideImg}>
+                      <img className={classesBody.slideImg} src={ticket}/>
+                  </div>
+                  <div className={classesBody.slideText}>
+                    <div className={classesBody.slideTitle}>
+                      Reservez votre place
+                    </div>
+                    <div className={classesBody.slideDesc}>
+                    Les tickets au meilleurs prix c'est ici, ne perdez pas de temps pour les déplacements, tout ce fait sur IVINX
+                  </div>
+                  </div>
+              </Box>
+          </Grid>
 
-                  {/* <Button  variant='contained' component='div' className={classes.actionBtn} sx={{
-                    marginLeft: 2,
-                    marginBottom: 2,
-                  }}> */}
-                  <IconButton aria-label="delete" className={classes.actionBtnIcone} sx={{
-                    color: 'primary.main3',
-                    margin: (1,0,1,1),
-                    }} >
-                    <EmojiEvents variant='large' sx={{ fontSize: 40 }} />
-                  </IconButton>
+          <Grid item>
+              <Box sx={{ boxShadow: 4 }} className={classesBody.carrousel}>
+                  <div className={classesBody.slideImg}>
+                      <img className={classesBody.slideImg} src={geo}/>
+                  </div>
+                  <div className={classesBody.slideText}>
+                  <div className={classesBody.slideTitle}>
+                      Suivez litinereraire
+                  </div>
+                      <div className={classesBody.slideDesc}>
+                          Choisissez un évènement, proche ou non, suivez l'itinéraire en seul click, simple et éfficace
+                      </div>
+                  </div>
+              </Box>
+          </Grid>
+        </Grid>
 
-                  <IconButton aria-label="delete" className={classes.actionBtnIcone} sx={{
-                    color: 'primary.main3',
-                    margin: (1,0,1,1),
-                    }} >
-                    <Cake variant='large' sx={{ fontSize: 40 }} />
-                  </IconButton>
-
-                  <IconButton aria-label="delete" className={classes.actionBtnIcone} sx={{
-                    color: 'primary.main3',
-                    margin: (1,0,1,1),
-                    }} >
-                    <Celebration variant='large' sx={{ fontSize: 40 }} />
-                  </IconButton>
-                  <IconButton aria-label="delete" className={classes.actionBtnIcone} sx={{
-                    color: 'primary.main3',
-                    margin: (1,0,1,1),
-                    }} >
-                    <Event variant='large' sx={{ fontSize: 40 }} />
-                  </IconButton>
-                  </Container>
-                </Grid>
-              
-              </Grid>
-            </Box>
-            </Container>
-          </div>
-        </Slide>}
-    </div>
+        <div>
+        <Link to='/event/start' className={classes.navText}>
+          <Button component={motion.button} whileHover={{scale: 1.2, transition: { duration: 1 },}}
+            whileTap={{ scale: 0.9 }} variant='contained' title='Entrer' size='large' className={classes.startButton}>
+            <div className={classes.startButtonText}>
+              Explorer
+            </div>
+          </Button>
+          </Link>
+        </div>
+      </div>
+    </Slide>
+    </>
   )
 }
 

@@ -8,6 +8,8 @@ import imgBack from '../../../assets/client/images/bg1.png';
 import imgBack2 from '../../../assets/client/images/bg2.png';
 import imgBack3 from '../../../assets/client/images/bg3.jpg';
 import rond from '../../../assets/client/images/rond.png';
+import man3d from '../../../assets/client/images/man3d.jpg';
+import backmo from '../../../assets/client/images/backmo.jpg';
 
 // @font-face {
 //     font-family: "GoldmanBold";
@@ -17,36 +19,37 @@ import rond from '../../../assets/client/images/rond.png';
 //     }
 
 const authStyle = makeStyles((theme) => ({
-    header : {
-        // width: "auto",
-        // height: '400px',
-        padding: theme.spacing(4),
-        // position: "absolute",
-        // display: "flex",
-        margin: 0,
-        /* fallback for old browsers */
-        // background: '#FF5F6D',  
-        backgroundColor: "#001122",
+    imageHeader : {
+        textAlign: 'center',
+        // height: 'auto',
+        paddingTop:100,
+        backgroundImage: `url(${backmo})`,
+        backgroundSize:'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        minHeight: "100%",
         [theme.breakpoints.down('sm')]: {
+            marginTop:5,
             padding: theme.spacing(2),
-            width: '450px',
+            // width: 'auto',
             
         },
-        
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        
-        // display:  "flex",
-        // justifyContent:  "space-between",
+    },
+
+    startButton: {
+        height: 100,
+        // position: 'absolute',
+    },
+
+    startButtonText: {
+        fontSize: 25,
     },
 
     headerBack:{
         paddingBottom: theme.spacing(4),
-        backgroundImage: `url(${imgBack})`,
-        backgroundImage: `url(${imgBack3})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
+        background: theme.palette.gradient.main3,
         [theme.breakpoints.down('sm')]: {
-            width: '450px',
+            // width: '450px',
         },
     
     },
@@ -80,12 +83,21 @@ const authStyle = makeStyles((theme) => ({
 
 
     headerTitle: {
-        fontSize: 40,
-        color: "white",
-        lineHeight: "40px",
-        fontWeight: 20,
+        paddingTop: 30,
+        paddingBottom: 30,
+        fontSize: 70,
+        color: 'white',
+        // color: theme.palette.primary.main2,
+        lineHeight: "60px",
+        fontWeight: 800,
         wordSpacing: 2,
         padding: theme.spacing(1),
+        [theme.breakpoints.down('lg')]:{
+            fontSize: 45,
+            lineHeight: "60px",
+            fontWeight: 800,
+            wordSpacing: 1,
+        },
     },
 
     headerDesc: {
@@ -99,7 +111,7 @@ const authStyle = makeStyles((theme) => ({
 
     headerBtn: {
         display: 'flex',
-        background: theme.palette.gradient.main3,
+        // background: theme.palette.gradient.main3,
         width: 300,
         heigh: 200,
         "&:hover": {
@@ -111,6 +123,7 @@ const authStyle = makeStyles((theme) => ({
     appBar : {
         // marginBottom: theme.spacing(4),
         background : 'transparent',
+        // minWidth: '450px',
     },
 
     toolBar : {
@@ -123,13 +136,27 @@ const authStyle = makeStyles((theme) => ({
     },
 
     action :{
-        marginTop: theme.spacing(5),
+        padding: theme.spacing(5,1,0,1),
     },
 
     paperAction :{
         // borderRadius: "50%",
-        borderRadius: 15,
+        borderRadius: 5,
         background: alpha("#ffff" , 0.1),
+        // background: theme.palette.gradient.main,
+
+
+    },
+
+    filterAction :{
+        padding: theme.spacing(0,2,0,2),
+    },
+
+    filterPaper :{
+        // borderRadius: "50%",
+        color: "#172636",
+        borderRadius: 5,
+        // background: alpha("#fcaf3c" , 1),
         // background: theme.palette.gradient.main,
 
 
@@ -181,7 +208,7 @@ const authStyle = makeStyles((theme) => ({
 
     actionBtn :{
         display: 'flex',
-        background: theme.palette.gradient.main2,
+        background: theme.palette.primary.main3,
         color: theme.palette.primary.main,
     },
 
@@ -207,6 +234,26 @@ const authStyle = makeStyles((theme) => ({
         alignItems: "center",
         justifyContent: "center",
     },
+
+    eventContainer: {
+        padding: theme.spacing(1),
+    },
+
+    eventSingle:{
+        background: alpha("#ffff" , 0.1),
+        borderRadius: 50,
+    },
+
+    eventTitle: {
+        fontSize: 17,
+        fontWeight: 800,
+    },
+
+    eventSubTitle:{
+        color:'#fcaf3c',
+        fontSize: 13
+    }
+
     
 }));
 

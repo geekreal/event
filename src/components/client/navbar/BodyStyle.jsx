@@ -1,9 +1,10 @@
 import React from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import { theme } from '../ClientTheme';
-import backmo from '../../../assets/client/images/backmo.jpg';
-
-
+import imgBack from '../../../assets/client/images/bg1.png';
+import imgBack2 from '../../../assets/client/images/bg2.png';
+import imgBack3 from '../../../assets/client/images/bg3.jpg';
+import rond from '../../../assets/client/images/rond.png';
 import { alpha } from '@mui/material';
 
 const BodyStyle = makeStyles((theme) => ({
@@ -11,15 +12,15 @@ const BodyStyle = makeStyles((theme) => ({
         height: 'auto',
         width: '400px',
         borderRadius: 10,
+        backgroundColor: alpha('#fff' , 0.3),
         // background: theme.palette.gradient.main2,
         textAlign: 'center',
-        margin: theme.spacing(2),
+        margin: theme.spacing(0,2,2,2),
         display: 'flex',
-        textOverflow: 'ellipsis'
-    },
-
-    contentPage :{
-        background: 'white',
+        textOverflow: 'ellipsis',
+        [theme.breakpoints.down('sm')]:{
+            width: 'auto',
+        },
     },
 
     slideImg: {
@@ -31,8 +32,8 @@ const BodyStyle = makeStyles((theme) => ({
         textAlign: 'left',
         fontSize: 20,
         padding: 3,
-        color: "#172636",
-        fontWeight: 800,
+        color: theme.palette.primary.main2,
+        fontWeight: 600,
     },
 
     letterTitle :{
@@ -75,13 +76,28 @@ const BodyStyle = makeStyles((theme) => ({
     slideDesc: {
         textAlign: 'left',
         padding : theme.spacing(0.5),
-        wordSpacing: theme.spacing(-0.2)
+        wordSpacing: theme.spacing(-0.2),
+        color: 'black'
     },
 
     gridSlide :{
         padding: theme.spacing(2),
         display: 'inline-block',
-        
+
+    },
+
+    topGridSlide :{
+        padding: theme.spacing(2),
+        display: 'inline-block',
+        paddingBottom: theme.spacing(4),
+        // backgroundImage: `url(${rond})`,
+        // backgroundRepeat: 'no-repeat',
+        // backgroundSize: 'contained',
+        // backgroundPosition: 'center',
+        // [theme.breakpoints.down('sm')]: {
+        //     width: '450px',
+        // },
+
     },
 
     getTouchGrid :{

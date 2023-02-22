@@ -31,6 +31,8 @@ import UserLogin from './Pages/client/auth/Login';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom';
 import Register from './Pages/admin/auth/Register';
 import { useState } from 'react';
+import Header from './components/client/navbar/Header';
+import Start from './components/client/navbar/Start';
 
 axios.defaults.headers.post['Accept'] = 'application/json'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
@@ -68,7 +70,8 @@ function App() {
         <div className={classes.container}>
           <Router>
             <Switch>
-              <Route exact path='/' component = {Home}/>
+              <Route path='/' name="Accueil" component = {Home}/>
+              {/* <Route exact path='/start' component = {Start}/> */}
               
               <Route path='/admin-login'>
                 {localStorage.getItem('auth_token') ? <Redirect to='/'/> : <Login/>}
