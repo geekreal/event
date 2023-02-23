@@ -22,7 +22,7 @@ const CreateEvent = () => {
   const classes = useStyle();
   // const history = useHistory();
   const history = useHistory();
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [circularLoading, setCircularLoading] = useState(false);
   const [picture, setPicture] = useState([]);
   const [error, setError] = useState([]);

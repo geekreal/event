@@ -10,6 +10,8 @@ import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { useState } from 'react';
+import EventHomeMap from '../client/map/EventHomeMap';
+import { useEffect } from 'react';
 
 const drawerBleeding = 56;
 
@@ -33,12 +35,23 @@ const Puller = styled(Box)(({ theme }) => ({
 }));
 
 function SwipeableEdgeDrawer(props) {
+  const [loadSkeleton, setLoadSkeleton] = useState(true);
   const { window } = props;
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setLoadSkeleton(false)
+      }, 3500);
+  
+      return () => {
+        clearTimeout(timer)
+      };
+  }, []);
 
   // This is used only for the example
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -49,7 +62,7 @@ function SwipeableEdgeDrawer(props) {
       <Global
         styles={{
           '.MuiDrawer-root > .MuiPaper-root': {
-            height: `calc(50% - ${drawerBleeding}px)`,
+            height: `calc(80% - ${drawerBleeding}px)`,
             overflow: 'visible',
           },
         }}
@@ -61,8 +74,8 @@ function SwipeableEdgeDrawer(props) {
         container={container}
         anchor="bottom"
         open={props.open}
-        onClose={props.close}
-        onOpen={props.open}
+        onClose={toggleDrawer(props.close)}
+        onOpen={toggleDrawer(props.open)}
         swipeAreaWidth={drawerBleeding}
         disableSwipeToOpen={false}
         ModalProps={{
@@ -92,7 +105,13 @@ function SwipeableEdgeDrawer(props) {
             overflow: 'auto',
           }}
         >
-          <Skeleton variant="rectangular" height="100%" />
+        {/* drawer content */}
+          {/* <Skeleton variant="rectangular" height="100%" /> */}
+          <EventHomeMap longitude={props.longitude} latitude={props.latitude} ville={props.ville}
+          userLongitude={props.userLongitude} userLatitude={props.userLatitude}
+          />
+          {/* <Typography sx={{ p: 2, color: 'text.secondary' }}>Ok Good</Typography> */}
+        {/*  */}
         </StyledBox>
       </SwipeableDrawer>
     </Root>

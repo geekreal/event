@@ -53,6 +53,7 @@ import { useEffect } from 'react';
 import { Fragment } from 'react';
 import MapDrawer from '../../modal/MapDrawer';
 import SwipeableEdgeDrawer from '../../modal/SwipeableEdgeDrawer';
+import swal from 'sweetalert';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -72,7 +73,6 @@ const ExpandMoreFunc = styled((props) => {
 const Start = () => {
     const classes = useStyle();
     const classesBody = BodyStyle();
-    const [openMapDialog, setOpenMapDialog] = useState(false);
 
     const date = moment().locale('fr').format('dddd');
 
@@ -84,28 +84,79 @@ const Start = () => {
     const [expanded, setExpanded] = useState(false);
     const [loadSkeleton, setLoadSkeleton] = useState(true);
 
+    const [userLocation, setUserLocation] = useState({
+      userLat:"",
+      userLng: "",
+    });
+
     const [openMapModal, setOpenMapModal] = useState(false);
-    // const setOpenMapModal(true) = () => {
-    //   setOpenMapModal(true);
-    // };
-  
-    // const handleClose = () => {
-    //   setOpenMapModal(false);
-    // };
 
     // ouverture et fermeture du map
-    // const openMap = ()=>{
-    //   setOpenMapDialog(true)
-    // }
-    // const closeMap = ()=>{
-    //   setOpenMapDialog(false)
-    // }
+    const openMapFunction = ()=>{
+      if (navigator.geolocation) {
+        navigator.permissions
+          .query({ name: "geolocation" })
+          .then(function (result) {
+            if (result.state === "granted") {
+              //If granted then you can directly call your function here
+              navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    setUserLocation({...userLocation, userLat:position.coords.latitude , userLng:position.coords.longitude})
+                    setOpenMapModal(true);
+                  },
+                  function(error) {
+                    swal("Alerte", error, "info");
+                  }
+              );
+              
+            } else if (result.state === "prompt") {
+
+              navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    setUserLocation({...userLocation, userLat:position.coords.latitude , userLng:position.coords.longitude})
+                    setOpenMapModal(true);
+                  },
+                  function(error) {
+                    swal("Alerte", error, "info");
+                  }
+              );
+
+            } else if (result.state === "denied") {
+              swal("Alerte", result.state, "info");
+              //If denied then you have to show instructions to enable location
+              // swal("Autorisation à votre position", "S'il vous plait, activer la localisation pour continuer", "info");
+              navigator.geolocation.getCurrentPosition(
+                function(position) {
+                  // swal("Alerte", position, "info");
+                    setUserLocation({...userLocation, userLat:position.coords.latitude , userLng:position.coords.longitude})
+                    // setOpenMapModal(true);
+                  },
+                  function(error) {
+                    swal("Alerte", error, "info");
+                  }
+              );
+              setOpenMapModal(false);
+            }
+            result.onchange = function () {
+              swal(result.state)
+              console.log(result.state);
+            };
+          });
+      } else {
+        swal("Autorisation à votre position", "S'il vous plait, activer la localisation pour continuer", "info");
+        // setOpenMapModal(false);
+      }
+    }
+  
+    const closeMap = ()=>{
+      setOpenMapModal(false)
+    }
 
     // chargement du skelelton
     useEffect(() => {
       const timer = setTimeout(() => {
         setLoadSkeleton(false)
-      }, 3500);
+      }, 1500);
   
       return () => {
         clearTimeout(timer)
@@ -409,7 +460,7 @@ const Start = () => {
                               <Skeleton animation="wave" variant='circular' height={30} width={30} sx={{background: alpha("#ffff" , 0.1)}}/> 
                           </Fragment>
                           ):(
-                          <IconButton onClick={() => setOpenMapModal(true)} aria-label="Lieu" sx={{color: 'white',display: 'flex',alignItems: 'center',flexWrap: 'wrap',fontSize: 10, }} >
+                          <IconButton onClick={openMapFunction} aria-label="Lieu" sx={{color: 'white',display: 'flex',alignItems: 'center',flexWrap: 'wrap',fontSize: 10, }} >
                             <PlaceSharp />
                             <span>Lieu</span>
                           </IconButton>)}
@@ -530,7 +581,7 @@ const Start = () => {
                               <Skeleton animation="wave" variant='circular' height={30} width={30} sx={{background: alpha("#ffff" , 0.1)}}/> 
                           </Fragment>
                           ):(
-                          <IconButton onClick={()=> setOpenMapModal(true)} aria-label="Lieu" sx={{color: 'white',display: 'flex',alignItems: 'center',flexWrap: 'wrap',fontSize: 10, }} >
+                          <IconButton onClick={openMapFunction} aria-label="Lieu" sx={{color: 'white',display: 'flex',alignItems: 'center',flexWrap: 'wrap',fontSize: 10, }} >
                             <PlaceSharp />
                             <span>Lieu</span>
                           </IconButton>)}
@@ -650,7 +701,7 @@ const Start = () => {
                               <Skeleton animation="wave" variant='circular' height={30} width={30} sx={{background: alpha("#ffff" , 0.1)}}/> 
                           </Fragment>
                           ):(
-                          <IconButton onClick={()=> setOpenMapModal(true)} aria-label="Lieu" sx={{color: 'white',display: 'flex',alignItems: 'center',flexWrap: 'wrap',fontSize: 10, }} >
+                          <IconButton onClick={openMapFunction} aria-label="Lieu" sx={{color: 'white',display: 'flex',alignItems: 'center',flexWrap: 'wrap',fontSize: 10, }} >
                             <PlaceSharp />
                             <span>Lieu</span>
                           </IconButton>)}
@@ -770,7 +821,7 @@ const Start = () => {
                               <Skeleton animation="wave" variant='circular' height={30} width={30} sx={{background: alpha("#ffff" , 0.1)}}/> 
                           </Fragment>
                           ):(
-                          <IconButton onClick={()=> setOpenMapModal(true)} aria-label="Lieu" sx={{color: 'white',display: 'flex',alignItems: 'center',flexWrap: 'wrap',fontSize: 10, }} >
+                          <IconButton onClick={openMapFunction} aria-label="Lieu" sx={{color: 'white',display: 'flex',alignItems: 'center',flexWrap: 'wrap',fontSize: 10, }} >
                             <PlaceSharp />
                             <span>Lieu</span>
                           </IconButton>)}
@@ -890,7 +941,7 @@ const Start = () => {
                               <Skeleton animation="wave" variant='circular' height={30} width={30} sx={{background: alpha("#ffff" , 0.1)}}/> 
                           </Fragment>
                           ):(
-                          <IconButton onClick={()=> setOpenMapModal(true)} aria-label="Lieu" sx={{color: 'white',display: 'flex',alignItems: 'center',flexWrap: 'wrap',fontSize: 10, }} >
+                          <IconButton onClick={openMapFunction} aria-label="Lieu" sx={{color: 'white',display: 'flex',alignItems: 'center',flexWrap: 'wrap',fontSize: 10, }} >
                             <PlaceSharp />
                             <span>Lieu</span>
                           </IconButton>)}
@@ -964,8 +1015,6 @@ const Start = () => {
 
                       </Card>
                     </Grid>
-
-
                   </Grid>
                 </Grid>
               {/* </Slide> */}
@@ -974,7 +1023,14 @@ const Start = () => {
       </div>
     </Slide>
     {/* <MapDrawer/> */}
-    <SwipeableEdgeDrawer open={openMapModal} close={()=> setOpenMapModal(false)}/>
+    {openMapModal ? 
+    (<SwipeableEdgeDrawer 
+        longitude="1.230922" latitude="6.132853"
+        ville ='Kpalimé' 
+        userLongitude={userLocation.userLng}
+        userLatitude={userLocation.userLat}
+        open={openMapModal} close={()=> setOpenMapModal(false)}/>
+    ):(<Skeleton/>) }
     {/* <MapModal show={openMapModal} close={()=> setOpenMapModal(false)}/>  */}
     </>
   )
