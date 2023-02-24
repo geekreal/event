@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import HomeStyle from './Style';
 import { Box, Container, CssBaseline, Grid, Slide } from '@mui/material';
 import ClientNavBar from '../../../components/client/navbar/ClientNavbar'
@@ -9,18 +9,29 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import routes from '../../../routes/routes';
 import backmo from '../../../assets/client/images/backmo.jpg';
 import swal from 'sweetalert';
+import ReactLoading from 'react-loading';
+import { useState } from 'react';
+
 
 const Home = () => {
   const classes = HomeStyle();
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    if ("geolocation" in navigator) {
-      console.log("Available");
-    } else {
-      console.log("Not Available");
-    }
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500);
+
+    return () => {
+      clearTimeout(timer)
+    };
+
   }, []);
+
   return (
-      <Box  >
+    <>
+    {loading ? <ReactLoading type='balls' color='red'/> :
+      <Box>
         <CssBaseline sx={{ display: 'flex',}}/>
         <Box sx={{flexGrow: 1, height: 700, }}>
           {/* Navar */}
@@ -58,6 +69,7 @@ const Home = () => {
           
         </Box>
       </Box>
+    }</>
   )
 }
 

@@ -1,5 +1,5 @@
 import { Check } from '@mui/icons-material';
-import { Box, Button, Fade, Grid, Slide, TextField, Typography } from '@mui/material';
+import { Box, Button, Fade, FormControl, FormGroup, Grid, Paper, Slide, TextareaAutosize, TextField, Typography } from '@mui/material';
 import React from 'react'
 import BodyStyle from './BodyStyle';
 import contact from '../../../assets/client/images/contact.png';
@@ -20,7 +20,38 @@ const Content = () => {
                 Soumettez-nous votre évènements
             </div>
             <div className={classes.touchActionTitle}>
-                Soumettez-nous votre évènements
+            Veillez remplir le formulaire de demande
+            </div>
+            <div>
+                <FormGroup>
+                    <FormControl>
+                    <TextField className={classes.mailInput} sx={{margin: 1, minWidth: 'auto',}}
+                        name='mail' label='Votre nom et prénom' variant='outlined'/>
+                    </FormControl>
+                </FormGroup>
+                <FormGroup>
+                    <FormControl>
+                    <TextField className={classes.mailInput} sx={{margin: 1, minWidth: 'auto',}}
+                        name='mail' label='Votre numéro de téléphone' variant='outlined'/>
+                        <FormControl>
+                    <TextField className={classes.mailInput} sx={{margin: 1, minWidth: 'auto',}}
+                        name='mail' label='Votre adresse mail' variant='outlined'/>
+                    </FormControl>
+                    </FormControl>
+                </FormGroup>
+                <FormGroup>
+                    <FormControl>
+                    <TextField className={classes.mailInput} sx={{margin: 1, minWidth: 'auto',}}
+                        name='mail' label='Votre Pays et la ville' variant='outlined'/>
+                    </FormControl>
+                </FormGroup>
+                <FormGroup>
+                    <FormControl>
+                    <Button sx={{margin: 1,}} className={classes.mailButton} variant='contained' size='large'>
+                        <Check/> Envoyer
+                    </Button>
+                    </FormControl>
+                </FormGroup>
             </div>
         </Grid> 
         </Grid>
@@ -36,7 +67,7 @@ const Content = () => {
                             Voulez vous recevoir des offres exclusive?
                         </div>
                         <Typography className={classes.letterDesc}>
-                            Soumettez nous votre mail, pour recevoir des offres exclusives
+                            Souscrivez avec votre adresse mail
                         </Typography>
                     </div>
                 </Grid>

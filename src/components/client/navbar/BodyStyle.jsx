@@ -12,7 +12,7 @@ const BodyStyle = makeStyles((theme) => ({
         height: 'auto',
         width: '400px',
         borderRadius: 10,
-        backgroundColor: alpha('#fff' , 0.3),
+        backgroundColor: alpha('#05BCC1' ,0.2),
         // background: theme.palette.gradient.main2,
         textAlign: 'center',
         margin: theme.spacing(0,2,2,2),
@@ -34,7 +34,7 @@ const BodyStyle = makeStyles((theme) => ({
         textAlign: 'left',
         fontSize: 20,
         padding: 3,
-        color: theme.palette.primary.main2,
+        color: theme.palette.gradient.blue,
         fontWeight: 600,
     },
 

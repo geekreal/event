@@ -53,6 +53,7 @@ import { useEffect } from 'react';
 import { Fragment } from 'react';
 import Start from './Start';
 import { useRef } from 'react';
+import ReactLoading from 'react-loading';
 
 const ExpandMoreFunc = styled((props) => {
     const { expand, ...other } = props;
@@ -138,7 +139,7 @@ const Header = () => {
 
         <div>
         <Link to='/event/start' className={classes.navText}>
-          <Button component={motion.button} whileHover={{scale: 1.2, transition: { duration: 1 },}}
+          <Button component={motion.button} whileHover={{scale: 1.2, transition: { duration: 1 },}} sx={{background: "#ED9A15"}}
             whileTap={{ scale: 0.9 }} variant='contained' title='Entrer' size='large' className={classes.startButton}>
             <div className={classes.startButtonText}>
               Explorer

@@ -2,6 +2,7 @@ import React from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import { theme } from '../ClientTheme';
 import backmo from '../../../assets/client/images/backmo.jpg';
+import motif_c from '../../../assets/client/images/motif_c.png';
 
 
 import { alpha } from '@mui/material';
@@ -19,7 +20,10 @@ const BodyStyle = makeStyles((theme) => ({
     },
 
     contentPage :{
-        background: 'white',
+        paddingTop: theme.spacing(5),
+        background: `url(${motif_c})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize:  "cover",
     },
 
     slideImg: {
@@ -96,6 +100,7 @@ const BodyStyle = makeStyles((theme) => ({
         paddingTop: 3,
         fontWeight: 400,
         lineHeight: 1.1,
+        color: theme.palette.gradient.darkBlue,
         [theme.breakpoints.down('sm')]: {
             fontSize: 25,
         },
@@ -103,7 +108,7 @@ const BodyStyle = makeStyles((theme) => ({
 
     touchImg: {
         textAlign: 'center',
-        height: '500px',
+        height: '450px',
         width: 'auto',
         [theme.breakpoints.down('sm')]: {
             height: '250px',
@@ -111,15 +116,26 @@ const BodyStyle = makeStyles((theme) => ({
     },
 
     touchActionTitle :{
-        textAlign: 'center',
-        fontSize: 30,
+        textAlign: 'let',
+        fontSize: 15,
         fontWeight: 50,
-        paddingTop: theme.spacing(3),
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(3),
         lineHeight: 1.1,
         [theme.breakpoints.down('sm')]: {
             fontSize: 20,
         },
     },
+
+    touchText :{
+        background: alpha("#fff", 0.3),
+        padding: '20px',
+        borderRadius: '15px',
+    },
+
+    letterDesc : {
+        fontSize: "10px",
+    }
 
 }));
 

@@ -64,6 +64,7 @@ function App() {
   const [lng, setLng] = useState(-70.9);
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(9);
+  const [ spinner, setSpinner ] = useState(true);
 
   return (
     <ThemeProvider theme={theme}>

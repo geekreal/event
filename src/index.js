@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@mui/material/CssBaseline';
+import Loading from 'react-loading';
 // important
 import { ThemeProvider } from '@mui/material/styles';
 // admin theme
@@ -13,6 +14,7 @@ ReactDOM.render(
   <React.StrictMode>
       <ThemeProvider theme={ClientTheme}>
       <CssBaseline />
+      {/* <Loading type="balls" color="red" ></Loading> */}
         <App />
       </ThemeProvider>
   </React.StrictMode>,

@@ -41,6 +41,7 @@ const authStyle = makeStyles((theme) => ({
 
     startButton: {
         height: 100,
+        backgroundColor: "white",
         // position: 'absolute',
     },
 
@@ -92,7 +93,7 @@ const authStyle = makeStyles((theme) => ({
         color: 'white',
         fontFamily: "MuseoModerno",
         // color: theme.palette.primary.main2,
-        lineHeight: "60px",
+        lineHeight: "70px",
         fontWeight: 900,
         wordSpacing: 2,
         padding: theme.spacing(3),
@@ -127,6 +128,7 @@ const authStyle = makeStyles((theme) => ({
     appBar : {
         // marginBottom: theme.spacing(4),
         background : 'transparent',
+        paddingTop: "9px",
         // minWidth: '450px',
     },
 
@@ -236,7 +238,7 @@ const authStyle = makeStyles((theme) => ({
         // paddingLeft: theme.spacing(50),
         marginTop: 5,
         alignItems: "center",
-        justifyContent: "center",
+        // justifyContent: "center",
     },
 
     eventContainer: {

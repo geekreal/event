@@ -29,7 +29,8 @@ import animWomen from '../../../assets/client/images/animWomenf.gif';
 import bgAnim from '../../../assets/client/images/bgAnim.gif';
 import { InputUnstyled } from '@mui/base';
 import CustomHomeInput from './CustomHomeInput';
-import Logo from '../../../assets/client/images/logo-ivinx.png'
+import Logo from '../../../assets/client/images/iv_v2_m_blanc.png';
+import LogoMotif from '../../../assets/client/images/ivenos_motif.png';
 import { useState } from 'react';
 
 const pages = ['ACCUEIL', 'EVENEMENT', 'CATEGORIE'];
@@ -74,9 +75,9 @@ const ClientNavBar = () => {
                 }
               }}
             >
-            {/* <img src={Logo} height={40}></img> */}
+            
             <Link to='/event' className={classes.navText}>
-              INVINX
+            <img src={Logo} height={70} sx={{marginTop: 50}}></img>
             </Link>
             </Typography>
             <Box className={classes.menusBox} sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -120,7 +121,9 @@ const ClientNavBar = () => {
                 display: { xs: 'flex', md: 'none' }
               }}
             >
-              LOGO
+              <Link to='/event' className={classes.navText}>
+              <img src={LogoMotif} height={50} sx={{marginTop: 20}}></img>
+              </Link>
             </Typography>
             {/* Large menus */}
             <Box
