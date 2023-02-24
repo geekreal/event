@@ -10,6 +10,9 @@ import imgBack3 from '../../../assets/client/images/bg3.jpg';
 import rond from '../../../assets/client/images/rond.png';
 import man3d from '../../../assets/client/images/man3d.jpg';
 import backmo from '../../../assets/client/images/backmo.jpg';
+import "@fontsource/league-spartan";
+import "@fontsource/museomoderno"
+
 
 // @font-face {
 //     font-family: "GoldmanBold";
@@ -83,19 +86,20 @@ const authStyle = makeStyles((theme) => ({
 
 
     headerTitle: {
-        paddingTop: 30,
+        // paddingTop: 30,
         paddingBottom: 30,
         fontSize: 70,
         color: 'white',
+        fontFamily: "MuseoModerno",
         // color: theme.palette.primary.main2,
         lineHeight: "60px",
-        fontWeight: 800,
+        fontWeight: 900,
         wordSpacing: 2,
-        padding: theme.spacing(1),
+        padding: theme.spacing(3),
         [theme.breakpoints.down('lg')]:{
-            fontSize: 45,
-            lineHeight: "60px",
-            fontWeight: 800,
+            fontSize: 30,
+            lineHeight: "30px",
+            fontWeight: 600,
             wordSpacing: 1,
         },
     },

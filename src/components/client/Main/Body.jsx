@@ -18,11 +18,10 @@ const Body = () => {
     const classes = BodyStyle();
   return (
     <div className={classes.body}>
-
-        {/* <Start/> */}
-        {/* <Content/> */}
-        {/* demander une publicité */}
-        {/* <Footer/> */}
+      {/* <Start/> */}
+      {/* <Content/> */}
+      {/* demander une publicité */}
+      {/* <Footer/> */}
        
     </div>
   )

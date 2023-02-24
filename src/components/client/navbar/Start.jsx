@@ -54,6 +54,7 @@ import { Fragment } from 'react';
 import MapDrawer from '../../modal/MapDrawer';
 import SwipeableEdgeDrawer from '../../modal/SwipeableEdgeDrawer';
 import swal from 'sweetalert';
+import { useRef } from 'react';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -73,6 +74,7 @@ const ExpandMoreFunc = styled((props) => {
 const Start = () => {
     const classes = useStyle();
     const classesBody = BodyStyle();
+    const containerRef = useRef(null);
 
     const date = moment().locale('fr').format('dddd');
 
@@ -171,8 +173,8 @@ const Start = () => {
   return (
     <>
     {/* {show && */}
-    <Slide in={true} direction='up' mountOnEnter unmountOnExit duration={30000}> 
-      <div >
+    <Slide in={true} direction='up' mountOnEnter unmountOnExit duration={30000} container={containerRef.current} appear={false}> 
+      <div>
       {/* <div  className={classes.headerTitle}>
         Vous êtes de plus en plus proche du monde.
         <Grid container className={classesBody.topGridSlide}>
@@ -226,7 +228,7 @@ const Start = () => {
           <Slide in={true} direction='left' mountOnEnter unmountOnExit duration={10000}>
             <div>
               <div className={classes.action}>
-              <Box elevation={6} className={classes.paperAction} sx={{boxShadow: 10}}>
+              <Box elevation={6} className={classes.paperAction} sx={{boxShadow: 0}}>
                 <Grid container spacing={2} className={classes.paperGrid} direction='column'>
                   <Grid item xs={12}  className={classes.actionTitleGrid}>
                     {/* <Typography component='div' className={classes.actionTitle} variant='actionTitle'>

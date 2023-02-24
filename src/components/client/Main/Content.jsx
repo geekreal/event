@@ -9,7 +9,7 @@ const Content = () => {
     const classes = BodyStyle();
   return (
     <> 
-    <Slide in={true} direction='up' mountOnEnter unmountOnExit > 
+    <Slide in={true} direction='up' mountOnEnter unmountOnExit appear={false}> 
     <div className={classes.contentPage}> 
         <Grid container direction='row' className={classes.getTouchGrid}>
         <Grid item className={classes.touchImgGrid} component='div'>
@@ -27,7 +27,7 @@ const Content = () => {
 
     {/* <Slide in={true} direction='left' mountOnEnter unmountOnExit> */}
         <div>
-            <Grid container direction='column' sx={{minWidth: 450}} className={classes.letterGrid}>
+            <Grid container direction='column' className={classes.letterGrid}>
                 <Box sx={{ boxShadow: 4 }} className={classes.letterBox}>
                 {/* <Grow style={{ transformOrigin: '0 0 0' }}/> */}
                 <Grid item xs={12}>

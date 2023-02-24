@@ -19,7 +19,9 @@ const BodyStyle = makeStyles((theme) => ({
         display: 'flex',
         textOverflow: 'ellipsis',
         [theme.breakpoints.down('sm')]:{
-            width: 'auto',
+            // width: 'auto',
+            width: '300px',
+            margin: theme.spacing(0,2,2,0),
         },
     },
 

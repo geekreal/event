@@ -52,6 +52,7 @@ import { fontSize } from '@mui/system';
 import { useEffect } from 'react';
 import { Fragment } from 'react';
 import Start from './Start';
+import { useRef } from 'react';
 
 const ExpandMoreFunc = styled((props) => {
     const { expand, ...other } = props;
@@ -67,6 +68,7 @@ const ExpandMoreFunc = styled((props) => {
 const Header = () => {
     const classes = useStyle();
     const classesBody = BodyStyle();
+    const containerRef = useRef(null);
 
     const date = moment().locale('fr').format('dddd');
 
@@ -78,10 +80,10 @@ const Header = () => {
   return (
     <>
     {/* {show && */}
-    <Slide in={true} direction='up' mountOnEnter unmountOnExit> 
+    <Slide in={true} appear={false} direction='up' mountOnEnter unmountOnExit duration={30000} container={containerRef.current}> 
       <div className={classes.imageHeader} >
         <div  className={classes.headerTitle}>
-          Vous êtes de plus en plus proche du monde.
+          IVENOS, Le monde est plus prêt de vous
         </div>
         <Grid container className={classesBody.topGridSlide}>
           <Grid item >
@@ -93,10 +95,10 @@ const Header = () => {
                     <div className={classesBody.slideTitle}>
                       Choisissez un évènement
                     </div>
-                      <Typography className={classesBody.slideDesc}>
+                      {/* <Typography className={classesBody.slideDesc}>
                         Des grand évènements jusqu'au petit, vous êtes au courant. Tout se passe ici.
                         Sur IVINX aucun évènement ne passe inaperçu
-                      </Typography>
+                      </Typography> */}
                   </div>
               </Box>
           </Grid>
@@ -110,9 +112,9 @@ const Header = () => {
                     <div className={classesBody.slideTitle}>
                       Reservez votre place
                     </div>
-                    <div className={classesBody.slideDesc}>
+                    {/* <div className={classesBody.slideDesc}>
                     Les tickets au meilleurs prix c'est ici, ne perdez pas de temps pour les déplacements, tout ce fait sur IVINX
-                  </div>
+                  </div> */}
                   </div>
               </Box>
           </Grid>
@@ -126,9 +128,9 @@ const Header = () => {
                   <div className={classesBody.slideTitle}>
                       Suivez litinereraire
                   </div>
-                      <div className={classesBody.slideDesc}>
+                      {/* <div className={classesBody.slideDesc}>
                           Choisissez un évènement, proche ou non, suivez l'itinéraire en seul click, simple et éfficace
-                      </div>
+                      </div> */}
                   </div>
               </Box>
           </Grid>

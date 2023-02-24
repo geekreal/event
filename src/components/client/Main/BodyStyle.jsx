@@ -86,7 +86,7 @@ const BodyStyle = makeStyles((theme) => ({
 
     getTouchGrid :{
         color: "#172636",
-        padding: theme.spacing(5,0,0,5),
+        padding: theme.spacing(3,3,3,3),
         background: alpha('#172636' , 0.1),
     },  
 
@@ -106,7 +106,7 @@ const BodyStyle = makeStyles((theme) => ({
         height: '500px',
         width: 'auto',
         [theme.breakpoints.down('sm')]: {
-            height: '300px',
+            height: '250px',
         },
     },
 

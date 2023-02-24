@@ -3,6 +3,8 @@ import { blue, color, green, lightBlue } from "@mui/material/colors";
 import { theme } from "../admin/theme";
 
 import Helvetica from './fonts/Helvetica.ttf';
+import "@fontsource/league-spartan";
+import "@fontsource/museomoderno"
 require('typeface-almarai');
 
 
@@ -23,16 +25,16 @@ const helvetica = {
 const ClientTheme = createTheme({
   palette: {
     primary: {
-      main: "#ba0578",
-      main2: "#118678",
+      main: "#001137",
+      main2: "#00255B",
     },
     btn: {
-      main: "#ba0578",
-      main2: "#118678",
+      main: "#001137",
+      main2: "#00255B",
       main3:'#fcaf3c',
     },
     secondary: {
-      main: "#ba0578",
+      main: "#001137",
       
       
     },
@@ -41,16 +43,17 @@ const ClientTheme = createTheme({
     },
     gradient: {
       // ba0578 jaune
-      // 118678 teal
-      main: "linear-gradient(to right, #ba0578, #ba0578)", //jaune
-      main2: "linear-gradient(to right, #118678, #118678)", //teal
-      main3: "linear-gradient(to top, #014255 , #014255, #ba0578)",
+      // 00255B teal
+      //rose A0024E
+      main: "linear-gradient(to right, #001137, #001137)", //jaune
+      main2: "linear-gradient(to right, #00255B, #00255B)", //teal
+      main3: "linear-gradient(to top, #00255B , #00255B, #001137)",
       main4: "#fcaf3c",//jaune
     }
   },//en palette
 
   typography: {
-    fontFamily: ['"almarai", sans serif'].join(','),
+    fontFamily: "MuseoModerno",
     color: "white",
     btnText: {
       fontWeight: 700,
