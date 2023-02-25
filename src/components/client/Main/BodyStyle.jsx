@@ -2,7 +2,7 @@ import React from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import { theme } from '../ClientTheme';
 import backmo from '../../../assets/client/images/backmo.jpg';
-import motif_c from '../../../assets/client/images/motif_c.png';
+import back from '../../../assets/client/images/back.jpg';
 
 
 import { alpha } from '@mui/material';
@@ -21,7 +21,8 @@ const BodyStyle = makeStyles((theme) => ({
 
     contentPage :{
         paddingTop: theme.spacing(5),
-        background: `url(${motif_c})`,
+        backgroundImage: `url(${back})`,
+        backgroundColor: theme.palette.gradient.darkBlue,
         backgroundRepeat: "no-repeat",
         backgroundSize:  "cover",
     },
@@ -64,7 +65,7 @@ const BodyStyle = makeStyles((theme) => ({
 
     letterBox:{
         padding: theme.spacing(5),
-        background: theme.palette.gradient.main2
+        background: "white"
     },
 
     letterInput :{
@@ -100,7 +101,7 @@ const BodyStyle = makeStyles((theme) => ({
         paddingTop: 3,
         fontWeight: 400,
         lineHeight: 1.1,
-        color: theme.palette.gradient.darkBlue,
+        color: "white",
         [theme.breakpoints.down('sm')]: {
             fontSize: 25,
         },
@@ -131,11 +132,16 @@ const BodyStyle = makeStyles((theme) => ({
         background: alpha("#fff", 0.3),
         padding: '20px',
         borderRadius: '15px',
+        backdropFilter: "blur(8px)",
     },
 
     letterDesc : {
         fontSize: "10px",
-    }
+    },
+
+    mailInput:{
+        borderRadius: 15,
+    },  
 
 }));
 

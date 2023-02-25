@@ -31,7 +31,7 @@ const Content = () => {
                 </FormGroup>
                 <FormGroup>
                     <FormControl>
-                    <TextField className={classes.mailInput} sx={{margin: 1, minWidth: 'auto',}}
+                    <TextField className={classes.mailInput} sx={{margin: 1, minWidth: 'auto', borderRadius: "15px",}}
                         name='mail' label='Votre numéro de téléphone' variant='outlined'/>
                         <FormControl>
                     <TextField className={classes.mailInput} sx={{margin: 1, minWidth: 'auto',}}
