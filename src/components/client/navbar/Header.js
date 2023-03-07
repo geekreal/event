@@ -81,7 +81,7 @@ const Header = () => {
   return (
     <>
     {/* {show && */}
-    <Slide in={true} appear={false} direction='up' mountOnEnter unmountOnExit duration={30000} container={containerRef.current}> 
+    <Slide in={true} appear={false} direction='up' mountOnEnter unmountOnExit duration={30000}> 
       <div className={classes.imageHeader} >
         <div  className={classes.headerTitle}>
           IVENOS, Le monde est plus prêt de vous

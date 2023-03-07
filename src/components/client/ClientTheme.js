@@ -5,6 +5,7 @@ import { theme } from "../admin/theme";
 import Helvetica from './fonts/Helvetica.ttf';
 import "@fontsource/league-spartan";
 import "@fontsource/museomoderno"
+import "@fontsource/roboto";
 require('typeface-almarai');
 
 
@@ -55,8 +56,17 @@ const ClientTheme = createTheme({
   },//en palette
 
   typography: {
-    fontFamily: "MuseoModerno",
+    fontFamily: "Roboto",
     color: "white",
+    fontSize: '1rem',
+    fontWeight: 400,
+    lineHeight: '1.6',
+    letterSpacing: '0.01071em',
+    opacity: 1,
+    textTransform: 'none',
+    verticalAlign: 'middle',
+    textDecoration: 'none',
+    color: 'rgb(103, 116, 142)',
     btnText: {
       fontWeight: 700,
       color: theme.palette.common.white

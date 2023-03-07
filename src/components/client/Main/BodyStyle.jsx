@@ -22,7 +22,7 @@ const BodyStyle = makeStyles((theme) => ({
     contentPage :{
         paddingTop: theme.spacing(5),
         backgroundImage: `url(${back})`,
-        backgroundColor: theme.palette.gradient.darkBlue,
+        background: theme.palette.gradient.main3,
         backgroundRepeat: "no-repeat",
         backgroundSize:  "cover",
     },
@@ -65,7 +65,7 @@ const BodyStyle = makeStyles((theme) => ({
 
     letterBox:{
         padding: theme.spacing(5),
-        background: "white"
+        background: "#ED9A15"
     },
 
     letterInput :{
@@ -129,7 +129,7 @@ const BodyStyle = makeStyles((theme) => ({
     },
 
     touchText :{
-        background: alpha("#fff", 0.3),
+        background: alpha("#05BCC1", 0.3),
         padding: '20px',
         borderRadius: '15px',
         backdropFilter: "blur(8px)",
@@ -142,6 +142,63 @@ const BodyStyle = makeStyles((theme) => ({
     mailInput:{
         borderRadius: 15,
     },  
+
+    eventImage: {
+        marginTop: 10,
+        padding: 10,
+    },
+
+    banner:{
+        background: theme.palette.gradient.main3
+
+    },
+
+    bannerText: {
+        fontSize: 45,
+        padding: theme.spacing(5),
+        fontWeight: 900,
+        wordSpacing: 1,
+        color: theme.palette.gradient.yellow,
+        lineHeight: 1,
+        textAlign: 'left',
+
+    },
+
+    bannerTextDesc:{
+        fontSize: 20,
+        padding: theme.spacing(),
+        fontWeight: 100,
+        wordSpacing: 1,
+        color: theme.palette.gradient.yellow,
+        lineHeight: 1,
+        textAlign: 'left',
+    },
+
+    ticketInput: {
+        borderRadius: "20px",
+    },
+
+    guestAvatar: {
+        textAlign: "left",
+        paddingBottom: theme.spacing(2),
+    },
+
+    cart: {
+        position:'fixed',
+        // width:'60px',
+        // height:'60px',
+        bottom:'300px',
+        right:'20px',
+        borderRadius:'50px',
+        textAlign:'center',
+        boxShadow: '2px 2px 3px #999',
+        color: '#ED9A15'
+        // alignItem: 'flex-end'
+    },
+    
+    eventTitle:{
+    
+    }
 
 }));
 

@@ -107,7 +107,8 @@ const Start = () => {
                     setOpenMapModal(true);
                   },
                   function(error) {
-                    swal("Alerte", error, "info");
+                    // swal("Alerte", error.message, "info");
+                    swal("Alerte", "Désolé, Assurez vous que vous êtes connecté à internet. Merci", "info");
                   }
               );
               
@@ -173,7 +174,7 @@ const Start = () => {
   return (
     <>
     {/* {show && */}
-    <Slide in={true} direction='up' mountOnEnter unmountOnExit duration={30000} container={containerRef.current} appear={false}> 
+    <Slide in={true} direction='up' mountOnEnter unmountOnExit duration={30000} appear={false}> 
       <div>
       {/* <div  className={classes.headerTitle}>
         Vous êtes de plus en plus proche du monde.
@@ -409,7 +410,7 @@ const Start = () => {
               </Grid>
               {/* {show &&
                 <Slide in={true} direction='down' mountOnEnter unmountOnExit> */}
-                <Grid item xs={9}>
+              <Grid item xs={9}>
                 <div style={{
                     fontSize: 15,
                     fontWeight: 800,
@@ -424,9 +425,11 @@ const Start = () => {
                             <Avatar sx={{ bgcolor: '#014255', color: 'white',  }} aria-label="recipe">R</Avatar>)}
                             action={loadSkeleton ? (<Skeleton animation="wave" width={40} height={40}  variant='circular' sx={{background: alpha("#ffff" , 0.1)}} />
                             ):(
-                              <IconButton aria-label="settings" sx={{color: 'white', }}>
-                                <MonetizationOn />
-                              </IconButton>)}
+                              <Link to='/event/1/ticket/'>
+                                <IconButton aria-label="settings" sx={{color: 'white', }}>
+                                  <MonetizationOn />
+                                </IconButton>
+                              </Link>)}
                             sx={{color: 'white' }}
                             title={loadSkeleton ?(<Skeleton animation="wave"  height={30} width="80%" variant='text' sx={{background: alpha("#ffff" , 0.1)}} />
                             ):(
@@ -665,9 +668,11 @@ const Start = () => {
                             <Avatar sx={{ bgcolor: '#014255', color: 'white',  }} aria-label="recipe">R</Avatar>)}
                             action={loadSkeleton ? (<Skeleton animation="wave" width={40} height={40}  variant='circular' sx={{background: alpha("#ffff" , 0.1)}} />
                             ):(
-                              <IconButton aria-label="settings" sx={{color: 'white', }}>
-                                <MonetizationOn />
-                              </IconButton>)}
+                              <Link to='/event/1/ticket/'>
+                                <IconButton aria-label="settings" sx={{color: 'white', }}>
+                                  <MonetizationOn />
+                                </IconButton>
+                              </Link>)}
                             sx={{color: 'white' }}
                             title={loadSkeleton ?(<Skeleton animation="wave"  height={30} width="80%" variant='text' sx={{background: alpha("#ffff" , 0.1)}} />
                             ):(
@@ -785,9 +790,11 @@ const Start = () => {
                             <Avatar sx={{ bgcolor: '#014255', color: 'white',  }} aria-label="recipe">R</Avatar>)}
                             action={loadSkeleton ? (<Skeleton animation="wave" width={40} height={40}  variant='circular' sx={{background: alpha("#ffff" , 0.1)}} />
                             ):(
-                              <IconButton aria-label="settings" sx={{color: 'white', }}>
-                                <MonetizationOn />
-                              </IconButton>)}
+                              <Link to='/event/1/ticket/'>
+                                <IconButton aria-label="settings" sx={{color: 'white', }}>
+                                  <MonetizationOn />
+                                </IconButton>
+                              </Link>)}
                             sx={{color: 'white' }}
                             title={loadSkeleton ?(<Skeleton animation="wave"  height={30} width="80%" variant='text' sx={{background: alpha("#ffff" , 0.1)}} />
                             ):(
@@ -905,9 +912,11 @@ const Start = () => {
                             <Avatar sx={{ bgcolor: '#014255', color: 'white',  }} aria-label="recipe">R</Avatar>)}
                             action={loadSkeleton ? (<Skeleton animation="wave" width={40} height={40}  variant='circular' sx={{background: alpha("#ffff" , 0.1)}} />
                             ):(
-                              <IconButton aria-label="settings" sx={{color: 'white', }}>
-                                <MonetizationOn />
-                              </IconButton>)}
+                              <Link to='/event/1/ticket/'>
+                                <IconButton aria-label="settings" sx={{color: 'white', }}>
+                                  <MonetizationOn />
+                                </IconButton>
+                              </Link>)}
                             sx={{color: 'white' }}
                             title={loadSkeleton ?(<Skeleton animation="wave"  height={30} width="80%" variant='text' sx={{background: alpha("#ffff" , 0.1)}} />
                             ):(

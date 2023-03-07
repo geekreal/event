@@ -34,6 +34,7 @@ import Start from '../components/client/navbar/Start';
 import Header from '../components/client/navbar/Header';
 import Home from '../Pages/client/home/Home';
 import Content from '../components/client/Main/Content';
+import PayTicket from '../components/client/Main/PayTicket';
 
 
 // Client 
@@ -46,6 +47,7 @@ const routes = [
     {path: "/event", exact: true,  name: 'Accueil', component : Header},
     {path: "/event/start", exact: true,  name: 'Start', component: Start},
     {path: "/event/action", exact: true,  name: 'Start', component: Content},
+    {path: "/event/:id/ticket", exact: true,  name: 'TicketPage', component: PayTicket},
 
     {path: "/admin", exact: true,  name: 'Admin'},
     {path: "/admin/home", exact: true, name: 'AdminHome', component: Dashboard},
