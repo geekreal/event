@@ -14,6 +14,9 @@ import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -52,13 +55,30 @@ const Accordion = styled((props) => (
   }));
 
 export default function PaymentForm(props) {
+  const classes = Style();
+  const eventId = props.eventId;
+  const history = useHistory();
+
+  const [tickets, setTickets] = useState({
+    id: '',
+    typeTicket: '',
+  });
+
   const [payement, setPayement] = useState({
     visa:'',
-    flooz:'',
-    tmoney:'',
-    orange: '',
+    network: '',
+    amount: '',
+    phone_number: '',
+    identifier: '',
+    description:'',
+    codeReservation: '',
+    ticketId: '',
+    eventId: '',
+    nbTicket: '',
+    code: '',
   });
-  const [expanded, setExpanded] = React.useState('panel1');
+
+  const [expanded, setExpanded] = React.useState('');
 
   const handleAccordionChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -69,7 +89,46 @@ export default function PaymentForm(props) {
     e.persist();
     setPayement({...payement, [e.target.name] : e.target.value});
   }
-  const classes = Style();
+
+  const NetworkChange = (param) =>{
+    setPayement({...payement, network:param});
+    console.log(param);
+  }
+
+  const PaygatePay = (e) =>{
+    let num = Math.floor(Math.random() * (2023 - 2009 + 1)) + 2009;
+    let code = "1I"+payement.typeTicket;
+     code = "2VE"+payement.ticketId;
+     code = "3NOS"+num;
+    e.preventDefault();
+    const data ={
+      phone_number: payement.phone_number,
+      identifier: payement.identifer,
+      amount: payement.amount,
+      description: payement.description,
+      network: payement.network,
+      codeReservation: payement.codeReservation,
+      ticketId: payement.ticketId,
+      eventId: payement.eventId,
+      nbTicket: payement.nbTicket,
+    }
+
+    axios.get('/sanctum/csrf-cookie').then(response =>{ 
+      axios.post(`/api/user/ticket/paygate/pay`, data).then(resp => {
+          if (resp.data.status === 200) {
+
+            localStorage.setItem('libelle' , resp.data.libelle)
+            localStorage.setItem('type_event_id' , resp.data.type_event_id)
+            swal("Parfait", resp.data.status+""+resp.data.message, "success");
+
+            // history.push('/admin/category-event/create');
+          } else {
+              
+          }
+      });
+    });
+  }
+
   return (
     <>
     <div >
@@ -78,7 +137,7 @@ export default function PaymentForm(props) {
       <Accordion sx={{border: 'none'}} className={classes.accordion} expanded={expanded === 'panel1'} 
       onChange={handleAccordionChange('panel1')}>
           <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-            <div className={classes.paymentImd}>
+            <div className={classes.paymentImd} onClick={() => NetworkChange("TMONEY")}>
               <FormControlLabel className={classes.radioBtn} value="Tmoney" control={<Radio />}/> Tomney
               <img src={Tmoney} alt="" height={50} className={classes.radioImg}/>
             </div>
@@ -99,7 +158,7 @@ export default function PaymentForm(props) {
 
       <Accordion sx={{border: 'none'}} className={classes.accordion} expanded={expanded === 'panel2'} onChange={handleAccordionChange('panel2')}>
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <div className={classes.paymentImd}>
+          <div className={classes.paymentImd} onClick={() => NetworkChange("FLOOZ")}>
             <FormControlLabel value="flooz" control={<Radio />} sx={{marginRight: 0}}/> Moov money togo
             <img src={flooz} alt="" height={50} className={classes.radioImg}/>
           </div>
@@ -114,10 +173,7 @@ export default function PaymentForm(props) {
               onChange={handleInputChange}/>
           </FormGroup>
           <FormGroup>
-            <Button size='large' variant='contained'>Valider</Button>
-          </FormGroup>
-          <FormGroup>
-            <Button size='large' variant='contained'>Valider</Button>
+            <Button size='large' variant='contained' onClick={PaygatePay}>Valider</Button>
           </FormGroup>
         </FormControl>
         </div>
@@ -126,9 +182,9 @@ export default function PaymentForm(props) {
 
       <Accordion sx={{border: 'none'}} className={classes.accordion} expanded={expanded === 'panel3'} onChange={handleAccordionChange('panel3')}>
         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-          <div className={classes.paymentImd}>
+          <div className={classes.paymentImd} onClick={() => NetworkChange("VISA")}>
             <FormControlLabel value="visa" control={<Radio />}  sx={{marginRight: 0}}/> Carte visa
-            <img src={visa} alt="" height={50} className={classes.radioImg}/>
+              <img src={visa} alt="" height={50} className={classes.radioImg}/>
           </div>
         </AccordionSummary>
         <AccordionDetails>
@@ -157,7 +213,7 @@ export default function PaymentForm(props) {
 
       <Accordion sx={{border: 'none'}} className={classes.accordion} expanded={expanded === 'panel4'} onChange={handleAccordionChange('panel4')}>
         <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
-          <div className={classes.paymentImd}>
+          <div className={classes.paymentImd} onClick={() => NetworkChange("ORANGE")}>
             <FormControlLabel value="orange" control={<Radio />} sx={{marginRight: 0}}/> Orange money
             <img src={orange} alt="" height={50} className={classes.radioImg}/>
           </div>

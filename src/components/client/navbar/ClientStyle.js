@@ -24,7 +24,6 @@ import "@fontsource/museomoderno"
 const authStyle = makeStyles((theme) => ({
     imageHeader : {
         textAlign: 'center',
-        // height: 'auto',
         paddingTop:100,
         backgroundImage: `url(${backmo})`,
         backgroundSize:'cover',
@@ -34,7 +33,7 @@ const authStyle = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             marginTop:5,
             padding: theme.spacing(2),
-            // width: 'auto',
+            width: 'auto',
             
         },
     },
@@ -66,7 +65,6 @@ const authStyle = makeStyles((theme) => ({
         display: "flex",
         heigh: 450,
         width: 450,
-
         [theme.breakpoints.down('sm')]: {
             heigh: 300,
             width: 300,

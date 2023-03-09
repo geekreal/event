@@ -13,6 +13,7 @@ import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import TicketPreview from './TicketPreview';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,7 +48,7 @@ function a11yProps(index) {
   };
 }
 
-export default function TabPayment() {
+export default function TabPayment(props) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
@@ -82,10 +83,10 @@ export default function TabPayment() {
         onChangeIndex={handleChangeIndex}
       > */}
         <TabPanel value={value} index={0} dir={theme.direction}>
-           <PaymentForm/>
+            <TicketPreview/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          Item Two
+            <PaymentForm eventId ={props.eventId}/>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           Item Three

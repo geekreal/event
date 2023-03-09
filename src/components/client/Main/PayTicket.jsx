@@ -5,31 +5,63 @@ import BodyStyle from './BodyStyle';
 import { useRef } from 'react';
 import affiche from '../../../assets/client/images/affiche.jpg';
 import { useState } from 'react';
-import { Add, Favorite, PlusOne, ReadMore, ShoppingBag, ShoppingCart, WidthWideTwoTone } from '@mui/icons-material';
+import { Add, DateRange, Favorite, HourglassTopSharp, Place, PlusOne, ReadMore, ShoppingBag, ShoppingCart, Watch, WatchLater, WatchRounded, WidthWideTwoTone } from '@mui/icons-material';
 import swal from 'sweetalert';
 import Payement from './Payement';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { Fragment } from 'react';
+import dayjs from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 function PayTicket(props) {
     const classes = BodyStyle();
     const containerRef = useRef(null)
     const [activeBtn, setActiveBtn] = useState(true);
-    const [typeTicket, setTypeTicket] = useState('');
+    const [typeTicket, setTypeTicket] = useState([]);
     const [showDrawer, setShowDrawer] = useState(false);
+    const [dateEvent, setDateEvent] = useState(dayjs());
 
     const [ticketInput, setTicketInput] = useState({
         ticketId : '',
         ticketType : '',
         ticketPrice : '',
         ticketNb : '',
+        ticketCommand : '',
+        typeId : '',
+        eventNom : '',
+        eventId : '',
+        eventDescription : '',
+        eventDate : '',
+        eventLieu : '',
+        eventDuree: '',
+        eventHeure : '',
     });
 
-    const handleChangeSelect = (event) => {
-        setTypeTicket(event.target.value);
+    const handleChangeSelect = (e) => {
+        let id = e.target.value;
+        setTicketInput({...ticketInput, ticketType : e.target.value});
+        axios.get(`api/user/event/${id}/ticket/price`).then(res=> {
+            if (res.status === 200) {
+                setTicketInput({...ticketInput, 
+                    ticketPrice: res.data.ticket.prix, 
+                    ticketNb: res.data.ticket.nb_ticket
+                })
+                // console.log("id :", id, res.data.ticket)
+            }else{
+
+            }
+        });
+        // setTypeTicket(event.target.value);
     };
 
     const handleInputChange =(e) =>{
         e.persist();
-        setTicketInput({...ticketInput, [e.target.name] : e.target.value});
+        let total = ticketInput.ticketPrice;
+        setTicketInput({...ticketInput, ticketCommand : e.target.value});
+        // ticketInput.ticketPrice = e.target.value * ticketInput.ticketPrice;
+        // total = ticketInput.ticketPrice * e.target.value;
+        // setTicketInput({...ticketInput, ticketPrice: e.target.value * ticketInput.ticketPrice});
     }
   
     const addTicket = () => {
@@ -37,12 +69,47 @@ function PayTicket(props) {
         if (ticketInput.ticketNb =="" || typeTicket === '') {
             swal("Veillez d'abord faire un choix du ticket avec la quantité !")
         }else{
+            if (ticketInput.ticketNb <= 0) {
+                swal("Sélectionnez aumoins un ticket")
+            }
             localStorage.setItem('ticketId' , id);
             localStorage.setItem('ticketNb' , ticketInput.ticketNb);
             setActiveBtn(false)
         }
         // localStorage.setItem('ticket' , ticketInput.ticketNb);
     }
+
+    useEffect(() => {
+
+        if(localStorage.getItem("ticketNb") != 0){
+            setActiveBtn(false);
+        }  
+        const id = props.match.params.id;
+        axios.get(`api/user/event/${id}/tickets/get`).then(res=> {
+              if (res.status === 200) {
+                  setTypeTicket(res.data.tickets)
+              }else{
+
+              }
+          });
+        //   ticket info
+          axios.get(`api/user/event/${id}/info`).then(res=> {
+            if (res.status === 200) {
+                setTicketInput({...ticketInput, 
+                      eventNom: res.data.ticket.nom, 
+                      eventDescription: res.data.ticket.description,
+                      eventId: res.data.ticket.id,
+                      eventDate: res.data.ticket.date,
+                      eventHeure: res.data.ticket.heure,
+                      eventDuree: res.data.ticket.duree,
+                      eventLieu: res.data.ticket.pays+'-'+res.data.ticket.lieu,
+                  })
+                //   console.log("ticketInput",ticketInput)
+            }else{
+
+            }
+        });
+    }, []);
 
     const paymentClick = () =>{
         setShowDrawer(true);
@@ -80,21 +147,29 @@ function PayTicket(props) {
                                 fontWeight: 700,
                                 fontSize: '1.875rem',
                                 lineHeight: 1.375,}}>
-                                    Titre de lévènement
+                                    {ticketInput.eventNom}
+                                </Typography>
+                                <Typography variant="subtitle1" color="text.secondary" 
+                                component="div" sx={{margin: 1, display: 'inline-flex'}}>
+                                    <div style={{margin: 1}}>
+                                        <DateRange fontSize='large' /> 
+                                        { dayjs( ticketInput.eventDate ).format("DD-MM-YYYY") }
+                                    </div>
+                                    <div style={{margin: 1}}>
+                                        <WatchRounded fontSize='large'/> {ticketInput.eventHeure}
+                                        
+                                    </div>
+                                    <div style={{margin: 1}}>
+                                        <HourglassTopSharp fontSize='large'/> {ticketInput.eventDuree}
+                                    </div>
+                                    <div style={{margin: 1}}>
+                                        <Place fontSize='large'/> {ticketInput.eventLieu}
+                                    </div>
                                 </Typography>
                                 <div className={classes.eventTitle} component="Typography">
-                                    Mac Miller
-                                    Petite description de l'évènement
-                                    This impressive paella is a perfect party dish and a fun meal to cook
-                                    together with your guests. Add 1 cup of frozen peas along with the mussels,
-                                    if you like.
+                                    {ticketInput.eventDescription}
                                 </div>
-                                <Typography variant="subtitle1" color="text.secondary" component="div">
-                                    Petite description de l'évènement
-                                    This impressive paella is a perfect party dish and a fun meal to cook
-                                    together with your guests. Add 1 cup of frozen peas along with the mussels,
-                                    if you like.
-                                </Typography>
+                                
                                 <div className={classes.guestAvatar}>
                                     <Typography component="div" variant="h4" sx={{fontSize:'1.385rem',
                                 color: 'rgb(52, 71, 103)',
@@ -111,7 +186,9 @@ function PayTicket(props) {
                                         <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
                                     </AvatarGroup>
                                 </div>
-                                <Grid container className={classes.eventSelect} spacing={2} sx={{marginBottom: 2,}}>
+                                {typeTicket !== "" ? (
+                                    <Fragment>
+                                        <Grid container className={classes.eventSelect} spacing={2} sx={{marginBottom: 2,}}>
                                     <Grid item xs={6} md={4}>
                                         <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">Type de ticket</InputLabel>
@@ -122,12 +199,14 @@ function PayTicket(props) {
                                                 border: '0.0625rem solid rgb(210, 214, 218)',
                                                 borderRadius: '0.5rem',
                                             }}
-                                            value={typeTicket}
+                                            value={ticketInput.typeTicket}
                                             onChange={handleChangeSelect}
-                                                label="Selectonner la quantité">
-                                                <MenuItem value={10}>Vip</MenuItem>
-                                                <MenuItem value={20}>Gold</MenuItem>
-                                                <MenuItem value={30}>Basique</MenuItem>
+                                            label="Selectonner la quantité">
+                                                {typeTicket.map((item) =>
+                                                    <MenuItem value={item.ticketId} key={item.ticketId}>
+                                                        {item.typeLibelle}
+                                                    </MenuItem>
+                                                )}
                                             </Select>
                                         </FormControl>
                                     </Grid>
@@ -143,7 +222,7 @@ function PayTicket(props) {
                                                     borderRadius: '0.5rem',
                                                 }}
                                                 type='number' label="Quantité"
-                                                value={ticketInput.ticketNb}
+                                                value={ticketInput.ticketCommand}
                                                 onChange={handleInputChange}>
                                             </TextField>
                                         </FormControl>
@@ -161,28 +240,30 @@ function PayTicket(props) {
                                         Valider
                                     </Button>
                                     </Grid>
-                                </Grid>
-                                
-                                <div component='Typography' className={classes.eventPrice}>
-                                    XOF 10 500 F
-                                </div>
-                                <Button type='contained' size='large' color='primary' sx={{
-                                    backgroundImage: 'linear-gradient(310deg, #00255B , #001137, #001137)',
-                                    alignItems: 'center',
-                                    fontSize: '1.5rem',
-                                    fontWeight: '700',
-                                    letterSpacing: '0.02857em',
-                                    minWidth: '64px',
-                                    width: '100%',
-                                    marginTop: 2,
-                                    color: 'white',
-                                    padding: 2,
-                                }}
-                                disabled={activeBtn}
-                                onClick={paymentClick}
-                                >
-                                    Générer votre ticket
-                                </Button>
+                                        </Grid>
+                                        <div component='Typography' className={classes.eventPrice}>
+                                            XOF {ticketInput.ticketCommand != 0 ? ticketInput.ticketPrice * ticketInput.ticketCommand: ticketInput.ticketPrice}
+                                        </div>
+                                        <Button type='contained' size='large' color='primary' sx={{
+                                            backgroundImage: 'linear-gradient(310deg, #00255B , #001137, #001137)',
+                                            alignItems: 'center',
+                                            fontSize: '1.5rem',
+                                            fontWeight: '700',
+                                            letterSpacing: '0.02857em',
+                                            minWidth: '64px',
+                                            width: '100%',
+                                            marginTop: 2,
+                                            color: 'white',
+                                            padding: 2,
+                                        }}
+                                        disabled={activeBtn}
+                                        onClick={paymentClick}
+                                        >
+                                            Générer votre ticket
+                                        </Button>
+                                    </Fragment>
+                                    
+                                ) : (<div>Cet évènement n'as pas de ticket !</div> )}
                                 </CardContent>
                                 <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
                                 </Box>
@@ -202,6 +283,7 @@ function PayTicket(props) {
 
     {showDrawer ? 
     (<Payement 
+        eventId = {props.match.params.id}
         open={showDrawer} close={()=> setShowDrawer(false)}/>
     ):(<Skeleton/>) }
 
