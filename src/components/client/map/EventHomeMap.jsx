@@ -13,14 +13,39 @@ import {
     CompassControl,
     ZoomControl,
 } from 'mapbox-gl-controls';
-import 'mapbox-gl-controls/lib/controls.css';
-import swal from 'sweetalert';
 
+
+import swal from 'sweetalert';
+import 'mapbox-gl-controls/lib/controls.css';
+{/*
+    recupération des cordonnées avec MapBox;
+    fonction pour calculer la distance entre deux
+    coordonnées geographique en format dégré deciaux;
+    Auteur: Geek Pro - Edem DOTSEY
+*/}
+
+function distance(latitude1, longitude1, latitude2, longitude2) {
+    const RayonTerre = 6371; // rayon de la terre
+    const degreLatitude = deg2rad(latitude2 - latitude1);
+    const degreLongite = deg2rad(longitude2 - longitude1);
+    const a =
+      Math.sin(degreLatitude / 2) * Math.sin(degreLatitude / 2) +
+      Math.cos(deg2rad(latitude1)) * Math.cos(deg2rad(latitude2)) *
+      Math.sin(degreLongite / 2) * Math.sin(degreLongite / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const dist = RayonTerre * c; // distance en km
+    return dist;
+  }
+
+  {/*Fonction de conersion des angles de latitude et de 
+  longitude des coordonnées degrés en radians,*/}
+  function deg2rad(degre) {
+    return degre * (Math.PI/180)
+  }
 
 function EventHomeMap(props) {
     mapboxgl.accessToken = 'pk.eyJ1IjoiZWRlbWRvdHNleSIsImEiOiJjbGFsN24zejIwMmN2M251cnFyY29naG51In0.NneTwwXscVduGn7xu1tTfA';
     const apiKey = 'pk.eyJ1IjoiZWRlbWRvdHNleSIsImEiOiJjbGFsN24zejIwMmN2M251cnFyY29naG51In0.NneTwwXscVduGn7xu1tTfA';
-
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng, setLng] = useState(props.longitude);
@@ -66,18 +91,22 @@ function EventHomeMap(props) {
         map.on('load',  function() {
             // directions.setOrigin([lng, lat]); // can be address in form setOrigin("12, Elm Street, NY")
             directions.setOrigin([props.userLongitude, props.userLatitude]); // can be address in form setOrigin("12, Elm Street, NY")
-            directions.setDestination('Kpalimé, Plateaux, Togo'); // can be address
+            directions.setDestination([props.longitude, props.latitude]); // can be address
         })
 
         console.log("props", "Long :" , props.userLongitude, "lat :" ,props.userLatitude)
 
-        },[]);
+    },[]);
 
+    // calcul de la distance
+    const dist1 = distance(props.userLatitude, props.userLongitude, props.latitude , props.longitude);
+    const dist2 = dist1.toFixed(2);
         
 return (
     <div>
         <div className={classes.sideBar}>
-            Votre position à {props.ville}
+            de votre position à {props.ville}  <br />
+            Environ {dist2} Kms
         </div>
         <div ref={mapContainer}  className="mapWrapper" id="map" />
     </div>

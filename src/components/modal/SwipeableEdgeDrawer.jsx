@@ -108,7 +108,7 @@ function SwipeableEdgeDrawer(props) {
         {/* drawer content */}
           {/* <Skeleton variant="rectangular" height="100%" /> */}
           <EventHomeMap longitude={props.longitude} latitude={props.latitude} ville={props.ville}
-          userLongitude={props.userLongitude} userLatitude={props.userLatitude}
+             userLongitude={props.userLongitude} userLatitude={props.userLatitude}
           />
           {/* <Typography sx={{ p: 2, color: 'text.secondary' }}>Ok Good</Typography> */}
         {/*  */}

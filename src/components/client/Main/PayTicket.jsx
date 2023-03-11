@@ -37,6 +37,7 @@ function PayTicket(props) {
         ticketPrice : '',
         ticketNb : '',
         ticketCommand : '',
+        number : '91107968',
         typeId : '',
         eventNom : '',
         eventId : '',
@@ -58,6 +59,7 @@ function PayTicket(props) {
                     ticketPrice: res.data.ticket.prix, 
                     ticketNb: res.data.ticket.nb_ticket,
                     ticketType: others.props.children,
+                    ticketId: id,
                 })
                 // console.log(others.props.children);
             }else{
@@ -92,10 +94,22 @@ function PayTicket(props) {
                 setActiveBtn(true);
                 setProgress(false);
             }else{
+                var number = localStorage.setItem('number' , "91107968");
+                var moyen_pay = localStorage.setItem('payment_method' , "Tmoney");
+
                 localStorage.setItem('ticketId' , id);
                 localStorage.setItem('ticketNb' , ticketInput.ticketCommand);
                 localStorage.setItem('event' , ticketInput.eventNom+" "+ticketInput.eventDescription);
                 localStorage.setItem('ticketPrice' , ticketInput.ticketType+" "+ticketInput.ticketPrice);
+                
+                localStorage.setItem("user_id", 1);
+                localStorage.setItem("event_id", ticketInput.eventId);
+                localStorage.setItem("ticket_id", ticketInput.ticketId);
+                localStorage.setItem("nb_ticket_payer", ticketInput.ticketCommand);
+                localStorage.setItem("number", ticketInput.number);
+                localStorage.setItem("total_reservation", ticketInput.ticketCommand * ticketInput.ticketPrice);
+                localStorage.setItem("moyen_paiement", moyen_pay);
+                localStorage.setItem("nom_ticket", ticketInput.ticketType);
                 // localStorage.setItem('ticketType' , typeTicket.ticketType);
                 setActiveBtn(false)
                 setProgress(false);
@@ -161,7 +175,7 @@ function PayTicket(props) {
     <>
     {ticketInput.eventId === "" ? (
     <Fragment>
-        <NotFound/>
+        {/* <NotFound/> */}
     </Fragment>
     ):(<Fragment>
         <Slide in={true} direction='up' mountOnEnter unmountOnExit appear={false}>
