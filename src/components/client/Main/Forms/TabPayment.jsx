@@ -14,6 +14,10 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import TicketPreview from './TicketPreview';
+import { useState } from 'react';
+import EmptyCart from '../../EmptyCart';
+import { Slide } from '@mui/material';
+import { Fragment } from 'react';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,7 +54,8 @@ function a11yProps(index) {
 
 export default function TabPayment(props) {
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [checkCart, setCheckCart] = useState(localStorage.getItem('ticketId'));
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -82,15 +87,20 @@ export default function TabPayment(props) {
         index={value}
         onChangeIndex={handleChangeIndex}
       > */}
-        <TabPanel value={value} index={0} dir={theme.direction}>
-            <TicketPreview/>
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-            <PaymentForm eventId ={props.eventId}/>
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          Item Three
-        </TabPanel>
+        <Slide direction="left" in={true} mountOnEnter unmountOnExit>
+          <div>
+          <TabPanel value={value} index={0} dir={theme.direction}>
+            {checkCart !==  "" ? <TicketPreview/>: <EmptyCart/>}
+          </TabPanel>
+          <TabPanel value={value} index={1} dir={theme.direction}>
+          {checkCart !==  "" ? <PaymentForm eventId ={props.eventId}/> : <EmptyCart/>}
+              
+          </TabPanel>
+          <TabPanel value={value} index={2} dir={theme.direction}>
+            {checkCart !==  "" ? "Item Three" : <EmptyCart/>}
+          </TabPanel>
+        </div>
+        </Slide>
       {/* </SwipeableViews> */}
     </Box>
   );

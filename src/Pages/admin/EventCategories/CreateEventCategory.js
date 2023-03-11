@@ -87,20 +87,23 @@ const CreateEventCategory = () => {
             Ajouter une categorie d'évenement</Typography>
         </Grid>
 
-        <Grid item xs={6} sm={6} className={classes.formContent}>
-            <div className={classes.formInput}>
-
-              <TextField
-                margin='normal' label="Libellé" variant="outlined" name='libelle'
-                value={createEventCategoryInput.libelle}
-                onChange={handleInput} 
-              />
-              <Typography variant='p' component="span">
-                  {createEventCategoryInput.error_list.libelle}
-              </Typography>
-
-            </div>
-        </Grid>
+{/* 
+  Simple MUI TextField components with Grid V5 System
+  Author : Geek Pro - Edem DOTSEY
+*/}
+<Grid item xs={6} sm={6} className={classes.formContent}>
+  <div className={classes.formInput}>
+    <TextField
+      margin='normal' label="Libellé" variant="outlined" 
+      name='libelle'
+      value={createEventCategoryInput.libelle}
+      onChange={handleInput} 
+    />
+    <Typography variant='p' component="span">
+        {createEventCategoryInput.error_list.libelle}
+    </Typography>
+  </div>
+</Grid>
 
         <Grid item xs={3} sm={2}className={classes.formButton}>
           <Stack direction="row" spacing={2}>

@@ -58,7 +58,7 @@ const ClientTheme = createTheme({
   typography: {
     fontFamily: "Roboto",
     color: "white",
-    fontSize: '1rem',
+    fontSize: 15,
     fontWeight: 400,
     lineHeight: '1.6',
     letterSpacing: '0.01071em',
@@ -88,11 +88,11 @@ const ClientTheme = createTheme({
     },
     h3: {
       fontWeight: 700,
-      fontSize: '2.2rem'
+      fontSize: 20
     },
     h4: {
       fontWeight: 700,
-      fontSize: '1.75rem'
+      fontSize: 18
     },
     headerTitle: {
       // fontSize: 30,
