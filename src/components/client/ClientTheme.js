@@ -49,7 +49,7 @@ const ClientTheme = createTheme({
       main: "linear-gradient(to right, #001137, #001137)", //jaune
       main2: "linear-gradient(to right, #00255B, #00255B)", //teal
       main3: "linear-gradient(to top, #00255B , #00255B, #001137)",
-      yellow: "#ED9A15",//jaune
+      yellow: "#fcaf3c",//jaune
       darkBlue: "#001137",//jaune
       blue: "#05BCC1",//jaune
     }

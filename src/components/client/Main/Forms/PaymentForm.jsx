@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, Radio, RadioGroup, TextField, Typography } from '@mui/material';
+import React, { useEffect, useRef } from 'react';
+import { Box, Button, CircularProgress, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, LinearProgress, linearProgressClasses, Radio, RadioGroup, TextField, Typography } from '@mui/material';
 import { Fragment } from 'react';
 import Style from './Style';
 import Tmoney from '../../../../assets/client/images/tmoney.png';
@@ -17,6 +17,8 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import swal from 'sweetalert';
+import dayjs from 'dayjs';
+import Pusher from 'pusher-js';
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -54,10 +56,25 @@ const Accordion = styled((props) => (
     borderTop: '1px solid rgba(0, 0, 0, .125)',
   }));
 
+  const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+    height: 10,
+    borderRadius: 5,
+    [`&.${linearProgressClasses.colorPrimary}`]: {
+      backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+    },
+    [`& .${linearProgressClasses.bar}`]: {
+      borderRadius: 5,
+      backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
+    },
+  }));
+
 export default function PaymentForm(props) {
   const classes = Style();
   const eventId = props.eventId;
   const history = useHistory();
+  const [paymentStatus, setPaymentStatus] = useState("0");
+  const [disablePayBtn, setDisablePayBtn] = useState(false);
+  const [paymentMessage, setPaymentMessage] = useState("Valider-");
 
   const [tickets, setTickets] = useState({
     id: '',
@@ -78,6 +95,30 @@ export default function PaymentForm(props) {
     code: '',
   });
 
+
+  const pusher = new Pusher('7f414dc36d7726d3b013', {
+    cluster: 'mt1',
+    encrypted: true,
+  });
+
+      pusher.connection.bind("error", function (err) {
+        // if (err.error.data.code === 4004) {
+        //   console.log(">>> detected limit error", err.error.data.message);
+        // }
+      });
+
+      const channel = pusher.subscribe('paygate-channel');
+
+      channel.bind('paygate-event', function(data) {
+        setPaymentStatus(data.status)
+        // console.log(data.status);
+        setPaymentStatus("0");
+        setDisablePayBtn(false)
+        setPaymentMessage("Confirmer! Merci")
+      });
+
+      pusher.disconnect();
+
   const [expanded, setExpanded] = React.useState('');
 
   const handleAccordionChange = (panel) => (event, newExpanded) => {
@@ -92,42 +133,128 @@ export default function PaymentForm(props) {
 
   const NetworkChange = (param) =>{
     setPayement({...payement, network:param});
+    setPayement({...payement, phone_number:''});
     console.log(param);
+    localStorage.setItem("network", param);
+    setPaymentStatus("0");
+    setDisablePayBtn(false)
   }
 
   const PaygatePay = (e) =>{
-    let num = Math.floor(Math.random() * (2023 - 2009 + 1)) + 2009;
-    let code = "1I"+payement.typeTicket;
-     code = "2VE"+payement.ticketId;
-     code = "3NOS"+num;
     e.preventDefault();
+    setPaymentStatus("pending");
+    setPaymentMessage("En cours");
+    setDisablePayBtn(true);
+    var  number = localStorage.getItem("number");
+    var  total_reservation = localStorage.getItem("total_reservation");
+    var  moyen_paiement = localStorage.getItem("network");
+    var  nom_ticket = localStorage.getItem("nom_ticket");
+    var  description = localStorage.getItem("nom_ticket");
+    var  user_id = localStorage.getItem("user_id");
+    var  ticket_id= localStorage.getItem("ticket_id");
+    var  event_id= localStorage.getItem("event_id");
+    var  nb_ticket_payer = localStorage.getItem("nb_ticket_payer");
+    var  date_reservation = dayjs(new Date()).format("YYYY-MM-DD") ;
+
+    let num = Math.floor(Math.random() * (202325 - 2087090 + 1)) + 2009;
+    let code1 = "1I"+nom_ticket;
+    let code2 = "2VE"+ticket_id;
+    let code3 = "3NOS"+num;
+    let codeR = code1+"-"+code2+"-"+code3
+    localStorage.setItem("code_reservation", codeR);
+    var nom_ticket = localStorage.getItem("nom_ticket");
+
+
+    var  code_reservation = localStorage.getItem("code_reservation");
+
     const data ={
       phone_number: payement.phone_number,
-      identifier: payement.identifer,
-      amount: payement.amount,
-      description: payement.description,
-      network: payement.network,
-      codeReservation: payement.codeReservation,
-      ticketId: payement.ticketId,
-      eventId: payement.eventId,
-      nbTicket: payement.nbTicket,
+      identifier: code_reservation,
+      amount: 1,
+      description: description,
+      user_id: 1,
+      network: moyen_paiement,
+      codeReservation: code_reservation,
+      ticketId:ticket_id,
+      eventId: event_id,
+      nbTicket: nb_ticket_payer,
+      date_reservation:date_reservation,
+      nom_ticket:nom_ticket
     }
 
     axios.get('/sanctum/csrf-cookie').then(response =>{ 
       axios.post(`/api/user/ticket/paygate/pay`, data).then(resp => {
-          if (resp.data.status === 200) {
-
-            localStorage.setItem('libelle' , resp.data.libelle)
-            localStorage.setItem('type_event_id' , resp.data.type_event_id)
-            swal("Parfait", resp.data.status+""+resp.data.message, "success");
-
-            // history.push('/admin/category-event/create');
+          if (resp.data.status === 0) {
+            // localStorage.setItem('libelle' , resp.data.libelle)
+            setPaymentStatus("save");
+            setPaymentMessage("Confirmation En attente")
+            // swal("Parfait", resp.data.status+""+resp.data.message, "success");
           } else {
-              
+            setPaymentStatus("0");
+            setDisablePayBtn(false)
+            
+            swal("Erreur", resp.data.status+""+resp.data.message, "info");
           }
+      }) .catch(error => {
+        // handle error
+        console.log(error.message);
       });
     });
   }
+
+  const [countdown, setCountdown] = useState();
+
+  // demande de confirmation
+  useEffect(() => {
+    if (paymentStatus === "save") {
+      let count = 50;
+      setCountdown(count);
+
+      const timer = setInterval(() => {
+        count--;
+        setCountdown(count);
+        setPaymentMessage("Vérification !")
+        // setPaymentMessage(countdown+" "+"Confirmation En attente")
+        if (count === 0 && paymentStatus === "save") {
+
+          let data = {
+            code_reservation: localStorage.getItem("code_reservation"),
+            number: localStorage.getItem("number"),
+          }
+
+          axios.get('/sanctum/csrf-cookie').then(response =>{ 
+            axios.post(`/api/paygate/confirmation/check`, data).then(resp => {
+              setPaymentStatus("pending");
+               console.log(resp.data);
+                if (resp.data.status === 200) {
+                  setPaymentStatus("0");
+                  setDisablePayBtn(true)
+                  setPaymentMessage(resp.data.message)
+                  // swal("Parfait", resp.data.status+""+resp.data.message, "success");
+                } else {
+
+                  setPaymentStatus("non");
+                  setDisablePayBtn(false)
+                  setPaymentMessage(resp.data.message)
+                  setCountdown("");
+                  
+                }
+            }) .catch(error => {
+              // handle error
+              console.log(error.message);
+            });
+          });
+        
+          clearInterval(timer);
+          setPaymentStatus("0");
+          setDisablePayBtn(false);
+          setPaymentMessage("Non confirmer");
+        }
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+
+  }, [paymentStatus]);
 
   return (
     <>
@@ -144,12 +271,28 @@ export default function PaymentForm(props) {
           </AccordionSummary>
           <AccordionDetails>
           <div className={classes.floozInput}>
+            {paymentStatus === "save" || paymentStatus === "paid" ? (<Fragment>
+              {/* <Box sx={{ width: '100%', marginBottom: 2}}> */}
+                <BorderLinearProgress variant="buffer" 
+                sx={{ width: '100%',  marginBottom: 2}}
+                value={paymentStatus === "save" ? 50 : paymentStatus === "paid" ? 100 : paymentStatus === "0" ? 0: 0} 
+                valueBuffer={paymentStatus === "save" ? 50 : paymentStatus === "paid" ? 100: paymentStatus === "0" ? 0: 0} 
+                />
+              {/* </Box> */}
+            </Fragment>) : ""}
             <FormControl>
               <FormGroup id='flooz' className={classes.number}>
-                <TextField variant='outlined' size='large' type='text' label="Numéro T-money TOGO"/>
+                <TextField variant='outlined' size='large' 
+                value={payement.phone_number} 
+                onChange={handleInputChange} name='phone_number' type='text' label="Numéro T-money TOGO"/>
               </FormGroup>
               <FormGroup>
-            <Button size='large' variant='contained'>Valider</Button>
+            <Button disabled={disablePayBtn} size='large' variant='contained' onClick={PaygatePay}>
+            {paymentStatus === "pending" || paymentStatus === "save" ? (<Fragment>
+              <CircularProgress color="inherit" sx={{marginRight: 2}}/>
+              </Fragment>) : ""}
+             {countdown > 0 ? countdown : ""} {paymentMessage}
+          </Button>
           </FormGroup>
             </FormControl>
           </div>
@@ -167,9 +310,9 @@ export default function PaymentForm(props) {
         <div className={classes.floozInput}>
         <FormControl>
           <FormGroup id='flooz' className={classes.number}>
-            <TextField 
+            <TextField  name='phone_number'
               sx={{minHeight: "100px"}} variant='outlined' size='large' type='text' label="Card number" 
-              value={payement.visa}
+              value={payement.phone_number} 
               onChange={handleInputChange}/>
           </FormGroup>
           <FormGroup>
@@ -191,7 +334,7 @@ export default function PaymentForm(props) {
         <div className={classes.floozInput}>
           <FormControl>
             <FormGroup id='flooz' className={classes.number}>
-              <TextField 
+              <TextField name='visa'
                 sx={{minHeight: "100px"}} variant='outlined' size='large' type='text' label="Card number" 
                 value={payement.visa}
                 onChange={handleInputChange}/>

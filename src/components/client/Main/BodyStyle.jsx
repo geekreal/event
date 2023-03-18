@@ -121,7 +121,7 @@ const BodyStyle = makeStyles((theme) => ({
         fontSize: 15,
         fontWeight: 50,
         paddingTop: theme.spacing(1),
-        paddingBottom: theme.spacing(3),
+        paddingBottom: theme.spacing(3),    
         lineHeight: 1.1,
         [theme.breakpoints.down('sm')]: {
             fontSize: 20,
@@ -187,13 +187,19 @@ const BodyStyle = makeStyles((theme) => ({
         position:'fixed',
         // width:'60px',
         // height:'60px',
+        top: 80,
         bottom:'300px',
         right:'20px',
         borderRadius:'50px',
         textAlign:'center',
         boxShadow: '2px 2px 3px #999',
-        color: '#ED9A15'
+        color: '#ED9A15',
         // alignItem: 'flex-end'
+        [theme.breakpoints.down('sm')]:{
+            top: 80,
+            bottom: 0,
+            boxShadow: 'none',
+        }
     },
     
     eventTitle:{

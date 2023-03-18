@@ -17,6 +17,7 @@ import Circular from '../Loader/Circular';
 import Alert from '../Loader/Alert';
 import AlertMessage from '../Loader/Alert';
 import NotFound from './NotFoung';
+import PayticketSkeleton from './PayticketSkeleton';
 function PayTicket(props) {
     const classes = BodyStyle();
     const containerRef = useRef(null)
@@ -30,6 +31,7 @@ function PayTicket(props) {
     const [progress, setProgress] = useState(false);
     const [openAlert, setOpenAlert] = useState(false);
     const [checkTicket, setCheckTicket] = useState(0);
+    const [loadSkeleton, setLoadSkeleton] = useState(true);
 
     const [ticketInput, setTicketInput] = useState({
         ticketId : '',
@@ -61,6 +63,7 @@ function PayTicket(props) {
                     ticketType: others.props.children,
                     ticketId: id,
                 })
+                // setLoadSkeleton(fa);
                 // console.log(others.props.children);
             }else{
 
@@ -94,8 +97,8 @@ function PayTicket(props) {
                 setActiveBtn(true);
                 setProgress(false);
             }else{
-                var number = localStorage.setItem('number' , "91107968");
-                var moyen_pay = localStorage.setItem('payment_method' , "Tmoney");
+                var number = localStorage.setItem('number' , "00");
+                var moyen_pay = localStorage.setItem('network' , "");
 
                 localStorage.setItem('ticketId' , id);
                 localStorage.setItem('ticketNb' , ticketInput.ticketCommand);
@@ -143,6 +146,7 @@ function PayTicket(props) {
                     eventLieu: res.data.ticket.pays+'-'+res.data.ticket.lieu,
                     dayDiff:Math.floor((Date.parse(res.data.ticket.date) - Date.parse(new Date()) ) / 86400000),
                   })
+                  setLoadSkeleton(false)
                 //   console.log("ticketInput",ticketInput)
             }else{
 
@@ -173,9 +177,10 @@ function PayTicket(props) {
 
   return (
     <>
-    {ticketInput.eventId === "" ? (
+    {loadSkeleton === true || ticketInput.eventId === "" ? (
     <Fragment>
         {/* <NotFound/> */}
+        <PayticketSkeleton/>
     </Fragment>
     ):(<Fragment>
         <Slide in={true} direction='up' mountOnEnter unmountOnExit appear={false}>
@@ -337,7 +342,7 @@ function PayTicket(props) {
                                         disabled={activeBtn}
                                         onClick={paymentClick}
                                         >
-                                            Générer votre ticket
+                                            PAIEMENT
                                         </Button>
                                     </Fragment>
                                     
@@ -351,14 +356,14 @@ function PayTicket(props) {
                 </Grid>
             </div>
         </div>
-    </Slide>
-    <div className={classes.cart} >
-        <Fab  aria-label="add" sx={{backgroundColor: "#ED9A15", height: 60, width: 60, fontSize: 25, color: 'white', ":hover": {
-            backgroundColor: "#ED9A15"
-        }}}>
-            <ShoppingCart  /><Badge>{localStorage.getItem('ticketNb')}</Badge>
-        </Fab>  
-    </div>
+        </Slide>
+        <div className={classes.cart} >
+            <Fab  aria-label="add" sx={{backgroundColor: "#ED9A15", height: 60, width: 60, fontSize: 25, color: 'white', ":hover": {
+                backgroundColor: "#ED9A15"
+            }}}>
+                <ShoppingCart  /><Badge>{localStorage.getItem('ticketNb')}</Badge>
+            </Fab>  
+        </div>
 
     {showDrawer ? 
     (<Payement 

@@ -6,7 +6,7 @@ const Style = makeStyles((theme) => ({
     textAlign: 'center',
     fontSize: 18,
     alignContent: 'center',
-    padding: theme.spacing(5),
+    padding: theme.spacing(1),
     marginLeft: -30,
     
  },

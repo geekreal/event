@@ -69,7 +69,6 @@ const Login = () => {
 
     return (
         <div>
-            <ClientNavBar />
             <Grid container 
             // sx={{
             //     marginTop: -1,

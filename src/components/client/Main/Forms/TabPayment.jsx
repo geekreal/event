@@ -77,9 +77,9 @@ export default function TabPayment(props) {
           variant="fullWidth"
           aria-label="full width tabs example"
         >
-          <Tab label="Paiement" {...a11yProps(0)} />
-          <Tab label="Ticket" {...a11yProps(1)} />
-          <Tab label="Télécharger" {...a11yProps(2)} />
+          <Tab label="TICKET" {...a11yProps(0)} />
+          <Tab label="PAIEMENT" {...a11yProps(1)} />
+          <Tab label="TELECHARGER" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       {/* <SwipeableViews
@@ -89,7 +89,7 @@ export default function TabPayment(props) {
       > */}
         <Slide direction="left" in={true} mountOnEnter unmountOnExit>
           <div>
-          <TabPanel value={value} index={0} dir={theme.direction}>
+          <TabPanel value={value} index={0} dir={theme.direction} >
             {checkCart !==  "" ? <TicketPreview/>: <EmptyCart/>}
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>

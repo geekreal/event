@@ -7,6 +7,8 @@ import MapStyle from './MapStyle';
 import './map.css';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import GeocodingService  from '@mapbox/mapbox-sdk/services/geocoding';
+
 import {
     RulerControl,
     StylesControl,
@@ -53,18 +55,36 @@ function EventHomeMap(props) {
     const [zoom, setZoom] = useState(7);
     const classes = MapStyle();
 
+    const StartItineraire = (directions) => {
+        const marker = new mapboxgl.Marker();
+        navigator.geolocation.watchPosition(position => {
+            const lngi = position.coords.longitude;
+            const lati = position.coords.latitude;
+          
+            // Mettre à jour la position du marqueur sur la carte
+            marker.setLngLat([lngi, lati]).addTo(map);
+          
+            // Mettre à jour l'itinéraire sur la carte
+            directions.setOrigin([lngi, lati]);
+          });
+    }
+
     useEffect(() => {
-        const map = new mapboxgl.Map({
-            container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v12',
-            positionOptions: {
-                enableHighAccuracy: true
-            },
-            center: [lng, lat],
-            trackUserLocation: true,
-            zoom: zoom,
-            showUserHeading: true
-        });
+    const map = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: 'mapbox://styles/mapbox/streets-v12',
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        center: [lng, lat],
+        trackUserLocation: true,
+        zoom: zoom,
+        showUserHeading: true,
+        moving: true,
+    });
+
+
+        // console.log("Map ",map);
 
         var directions = new MapboxDirections({
             accessToken: apiKey,
@@ -88,14 +108,12 @@ function EventHomeMap(props) {
         // Zoom
         map.addControl(new ZoomControl(), 'top-right');
 
+        // console.log("props", "Long :" , props.userLongitude, "lat :" ,props.userLatitude)
         map.on('load',  function() {
             // directions.setOrigin([lng, lat]); // can be address in form setOrigin("12, Elm Street, NY")
             directions.setOrigin([props.userLongitude, props.userLatitude]); // can be address in form setOrigin("12, Elm Street, NY")
             directions.setDestination([props.longitude, props.latitude]); // can be address
         })
-
-        console.log("props", "Long :" , props.userLongitude, "lat :" ,props.userLatitude)
-
     },[]);
 
     // calcul de la distance

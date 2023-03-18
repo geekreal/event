@@ -1,5 +1,6 @@
 import {
   Button,
+  FormGroup,
   Paper,
   Table,
   TableBody,
@@ -37,6 +38,7 @@ const TicketPreview = () => {
 
   const SaveTicket = (e) => {
     setOpenProgress(true)
+    e.preventDefault();
     const timer = setTimeout(() => {
       var  user_id = localStorage.getItem("user_id");
       var  ticket_id= localStorage.getItem("ticket_id");
@@ -54,8 +56,8 @@ const TicketPreview = () => {
       let code2 = "2VE"+ticket_id;
       let code3 = "3NOS"+num;
       let codeR = code1+"-"+code2+"-"+code3
+      localStorage.setItem("code_reservation", codeR);
 
-      e.preventDefault();
       const data ={
         user_id: user_id,
         event_id: event_id,
@@ -115,9 +117,9 @@ const TicketPreview = () => {
         </Table>
       </TableContainer>
 
-    <div style={{display: 'flex', alignItems: 'center', padding: 2}}>
+    <div style={{marginTop: 10,alignItems: 'center', padding: 2, textAlign: "center" , alignContent: "center"}}>
     {openProgress ? <Circular />: ""}
-    <Button
+    {/* <Button
         type="contained"
         size="large"
         color="primary"
@@ -142,35 +144,11 @@ const TicketPreview = () => {
         onClick={CancelTicketClick}
       >
         Tout anuluer !
-      </Button>
+      </Button> */}
+     <FormGroup>
+        <Button size='large' variant='contained' >Continuer</Button>
+      </FormGroup>
     </div>
-
-    <Button
-        type="contained"
-        size="large"
-        color="primary"
-        sx={{
-          backgroundColor: "green",
-          alignItems: "center",
-          fontSize: "1.5rem",
-          fontWeight: "700",
-          letterSpacing: "0.02857em",
-          minWidth: "64px",
-          width: "100%",
-          marginTop: 2,
-          marginLeft: 2,
-          color: "white",
-          padding: 2,
-          "&:hover":{
-            backgroundColor: "#b71c1c",
-          }
-        }}
-        onClick={SaveTicket}
-      >
-        Save
-      </Button>
-    
-      
     </div>
   );
 };

@@ -25,7 +25,8 @@ const authStyle = makeStyles((theme) => ({
     imageHeader : {
         textAlign: 'center',
         paddingTop:100,
-        backgroundImage: `url(${backmo})`,
+        backgroundImage: theme.palette.gradient.main3,
+        // backgroundImage: `url(${backmo})`,
         backgroundSize:'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

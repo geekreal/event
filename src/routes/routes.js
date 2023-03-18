@@ -36,10 +36,11 @@ import Home from '../Pages/client/home/Home';
 import Content from '../components/client/Main/Content';
 import PayTicket from '../components/client/Main/PayTicket';
 
-
 // Client 
 
-
+import UserLogin from '../Pages/client/auth/Login'
+import UserRegister from '../Pages/client/auth/Register'
+import UserProfile from '../Pages/client/auth/Profile'
 // routes
 
 const routes = [ 
@@ -48,6 +49,9 @@ const routes = [
     {path: "/event/start", exact: true,  name: 'Start', component: Start},
     {path: "/event/action", exact: true,  name: 'Start', component: Content},
     {path: "/event/:id/ticket", exact: true,  name: 'TicketPage', component: PayTicket},
+    {path: "/event/user/login", exact: true, name: 'UserLogin', component: UserLogin},
+    {path: "/event/user/register", exact: true, name: 'UserRegister' , component: UserRegister},
+    {path: "/event/user/profile", exact: true, name: 'UserProfile' , component: UserProfile},
 
     {path: "/admin", exact: true,  name: 'Admin'},
     {path: "/admin/home", exact: true, name: 'AdminHome', component: Dashboard},

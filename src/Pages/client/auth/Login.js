@@ -13,7 +13,7 @@ const Login = () => {
 
     return (
         <div>
-        <ClientNavBar />
+        {/* <ClientNavBar /> */}
         <Grid container 
         // sx={{
         //     marginTop: -1,
@@ -87,7 +87,7 @@ const Login = () => {
 
                         <Container>
                             <Divider>
-                                <Chip label="OU" />
+                                <Chip label="OU"/>
                             </Divider>
                         </Container>
 
