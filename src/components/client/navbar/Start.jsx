@@ -24,7 +24,6 @@ import citron from '../../../assets/client/images/citron.jpg';
 import affiche from '../../../assets/client/images/affiche.jpg';
 import calendar from '../../../assets/client/images/calendar.jpg';
 import ticket from '../../../assets/client/images/ticket.png';
-import geo1 from '../../../assets/client/images/geo.jpg';
 import geo from '../../../assets/client/images/geo.png';
 import contact from '../../../assets/client/images/contact.png';
 import { Check } from '@mui/icons-material';

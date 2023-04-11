@@ -23,12 +23,14 @@ import citron from '../../../assets/client/images/citron.jpg';
 import affiche from '../../../assets/client/images/affiche.jpg';
 import calendar from '../../../assets/client/images/calendar.jpg';
 import ticket from '../../../assets/client/images/ticket.png';
-import geo1 from '../../../assets/client/images/geo.jpg';
+import geo1 from '../../../assets/client/images/geo1.png';
 import geo from '../../../assets/client/images/geo.png';
+import events from '../../../assets/client/images/events.png';
 import contact from '../../../assets/client/images/contact.png';
 import { Check } from '@mui/icons-material';
 import EventSkelton from './EventSkelton';
 import {motion} from 'framer-motion';
+import Carousel from 'react-material-ui-carousel';
 
 import {
     AccountCircle,
@@ -54,6 +56,25 @@ import { Fragment } from 'react';
 import Start from './Start';
 import { useRef } from 'react';
 import ReactLoading from 'react-loading';
+
+const data = [
+  {
+    src: events,
+    // title: "Choisissez un évènement",
+    // description: "Des grands évènements jusqu'aux petits, vous êtes au courant. Sur IVINX aucun évènement ne passe inaperçu",
+  },
+  {
+    src: geo,
+    // title: 'Reservez votre place',
+    // description: "Les tickets au meilleurs prix c'est ici, ne perdez pas de temps pour les déplacements, tout ce fait sur IVINX",
+  },
+  {
+    src: geo1,
+    // title: "Suivez l'itineraire",
+    // description: "Choisissez un évènement, proche ou non, suivez l'itinéraire en seul click, simple et éfficace",
+  },
+];
+
 
 const ExpandMoreFunc = styled((props) => {
     const { expand, ...other } = props;
@@ -82,71 +103,89 @@ const Header = () => {
     <>
     {/* {show && */}
     <Slide in={true} appear={false} direction='up' mountOnEnter unmountOnExit duration={30000}> 
-      <div className={classes.imageHeader} >
-        <div  className={classes.headerTitle}>
-          IVENOS, Le monde est plus prêt de vous
-        </div>
-        <Grid container className={classesBody.topGridSlide}>
-          <Grid item >
-              <Box sx={{ boxShadow: 4 }} className={classesBody.carrousel}>
-                  <div className={classesBody.slideImg}>
-                      <img className={classesBody.slideImg} src={geo1}/>
+      <div className={classes.imageHeader}>
+        <Grid container columns={{ xs: 2, sm: 12, md: 12 }} className={classes.gridBack}>
+          <Grid item xs={6} className={classes.mainTitle}>
+            <div  className={classes.headerTitle} > 
+              IVENOS, Le monde est plus prêt de vous
+              <Typography sx={{color: "WHITE" , lineHeight: 1, marginTop: 2,}}>
+                Nous sommes convaincus que participer aux évènements permet d'agrandir vos relations.
+              </Typography>
+              <div>
+              <Link to='/event/start' className={classes.navText}>
+                <Button component={motion.button} whileHover={{scale: 1.2, transition: { duration: 1 },}} sx={{background: "#ED9A15"}}
+                  whileTap={{ scale: 0.9 }} variant='contained' title='Entrer' size='large' className={classes.startButton}>
+                  <div className={classes.startButtonText}>
+                    Explorer
                   </div>
-                  <div className={classesBody.slideText}>
-                    <div className={classesBody.slideTitle}>
-                      Choisissez un évènement
-                    </div>
-                      {/* <Typography className={classesBody.slideDesc}>
-                        Des grand évènements jusqu'au petit, vous êtes au courant. Tout se passe ici.
-                        Sur IVINX aucun évènement ne passe inaperçu
-                      </Typography> */}
-                  </div>
-              </Box>
+                </Button>
+                </Link>
+              </div>
+            </div>
           </Grid>
-
-          <Grid item >
-              <Box sx={{ boxShadow: 4 }} className={classesBody.carrousel}>
-                  <div className={classesBody.slideImg}>
-                      <img className={classesBody.slideImg} src={ticket}/>
-                  </div>
-                  <div className={classesBody.slideText}>
-                    <div className={classesBody.slideTitle}>
-                      Reservez votre place
+          <Grid item xs={6} className={classes.carouselCard}>
+            <Grid container className={classesBody.topGridSlide}
+              direction='column'
+              sx={{
+                display: 'flex',
+                gap: 1,
+                py: 1,
+                overflow: 'auto',
+                scrollSnapType: 'x mandatory',
+                '& > *': {
+                  scrollSnapAlign: 'center',
+                },
+                '::-webkit-scrollbar': { display: 'none' },
+              }}
+            >
+            <Carousel autoPlay={true} animation='fade' indicators={false}>
+            {data.map((items) => (
+              <Grid item key={items.src}>
+                <Box sx={{ boxShadow: 4 }} className={classesBody.carrousel} >
+                    <div className={classesBody.slideImg} style={{textAlign: 'center', alignContent: 'center',
+                    alignItems: 'center',}}>
+                        <img className={classesBody.slideImg} src={items.src}/>
                     </div>
-                    {/* <div className={classesBody.slideDesc}>
-                    Les tickets au meilleurs prix c'est ici, ne perdez pas de temps pour les déplacements, tout ce fait sur IVINX
-                  </div> */}
-                  </div>
-              </Box>
-          </Grid>
+                  </Box>
+              </Grid>
+            ))}
 
-          <Grid item>
-              <Box sx={{ boxShadow: 4 }} className={classesBody.carrousel}>
-                  <div className={classesBody.slideImg}>
-                      <img className={classesBody.slideImg} src={geo}/>
-                  </div>
-                  <div className={classesBody.slideText}>
-                  <div className={classesBody.slideTitle}>
-                      Suivez litinereraire
-                  </div>
-                      {/* <div className={classesBody.slideDesc}>
-                          Choisissez un évènement, proche ou non, suivez l'itinéraire en seul click, simple et éfficace
-                      </div> */}
-                  </div>
-              </Box>
+            </Carousel>
+
+              {/* <Grid item >
+                  <Box sx={{ boxShadow: 4 }} className={classesBody.carrousel}>
+                      <div className={classesBody.slideImg}>
+                          <img className={classesBody.slideImg} src={ticket}/>
+                      </div>
+                      <div className={classesBody.slideText}>
+                        <div className={classesBody.slideTitle}>
+                          Reservez votre place
+                        </div>
+                        <div className={classesBody.slideDesc}>
+                        Les tickets au meilleurs prix c'est ici, ne perdez pas de temps pour les déplacements, tout ce fait sur IVINX
+                      </div>
+                      </div>
+                  </Box>
+              </Grid> */}
+
+              {/* <Grid item>
+                  <Box sx={{ boxShadow: 4 }} className={classesBody.carrousel}>
+                      <div className={classesBody.slideImg}>
+                          <img className={classesBody.slideImg} src={geo}/>
+                      </div>
+                      <div className={classesBody.slideText}>
+                      <div className={classesBody.slideTitle}>
+                          Suivez litinereraire
+                      </div>
+                          <div className={classesBody.slideDesc}>
+                              Choisissez un évènement, proche ou non, suivez l'itinéraire en seul click, simple et éfficace
+                          </div>
+                      </div>
+                  </Box>
+              </Grid> */}
+            </Grid>
           </Grid>
         </Grid>
-
-        <div>
-        <Link to='/event/start' className={classes.navText}>
-          <Button component={motion.button} whileHover={{scale: 1.2, transition: { duration: 1 },}} sx={{background: "#ED9A15"}}
-            whileTap={{ scale: 0.9 }} variant='contained' title='Entrer' size='large' className={classes.startButton}>
-            <div className={classes.startButtonText}>
-              Explorer
-            </div>
-          </Button>
-          </Link>
-        </div>
       </div>
     </Slide>
     </>

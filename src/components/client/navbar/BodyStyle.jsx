@@ -10,31 +10,29 @@ import { alpha } from '@mui/material';
 const BodyStyle = makeStyles((theme) => ({
     carrousel :{
         height: 'auto',
-        width: '400px',
-        borderRadius: 10,
-        backgroundColor: alpha('#05BCC1' ,0.2),
-        // background: theme.palette.gradient.main2,
-        textAlign: 'center',
-        margin: theme.spacing(0,2,2,2),
-        display: 'flex',
-        textOverflow: 'ellipsis',
+        width: 'auto',
         [theme.breakpoints.down('sm')]:{
-            // width: 'auto',
-            width: '300px',
+            height: 'auto',
+            width: 'auto',
             margin: theme.spacing(0,2,2,0),
+            fontSize: 15,
         },
     },
 
     slideImg: {
-        height: '100px',
-        width: '100px',
+        height: '350px',
+        width: 'auto',
+        paddingRight: 5,
+        alignContent: 'center',
+        alignItems: 'center',
+
     },
 
     slideTitle :{
         textAlign: 'left',
-        fontSize: 20,
+        fontSize: 15,
         padding: 3,
-        color: theme.palette.gradient.blue,
+        color: "#ccccff",
         fontWeight: 600,
     },
 
@@ -77,9 +75,10 @@ const BodyStyle = makeStyles((theme) => ({
 
     slideDesc: {
         textAlign: 'left',
+        fontSize: 15,
         padding : theme.spacing(0.5),
         wordSpacing: theme.spacing(-0.2),
-        color: 'black'
+        color: '#9999ff'
     },
 
     gridSlide :{

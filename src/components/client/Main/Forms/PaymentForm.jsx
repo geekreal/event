@@ -102,22 +102,24 @@ export default function PaymentForm(props) {
   });
 
       pusher.connection.bind("error", function (err) {
-        // if (err.error.data.code === 4004) {
-        //   console.log(">>> detected limit error", err.error.data.message);
-        // }
+        if (err.error) {
+          // console.log(">>> detected limit error", err.error.data.message);
+          pusher.disconnect();
+        }
       });
 
       const channel = pusher.subscribe('paygate-channel');
 
       channel.bind('paygate-event', function(data) {
-        setPaymentStatus(data.status)
+        // setPaymentStatus(data.status)
         // console.log(data.status);
         setPaymentStatus("0");
-        setDisablePayBtn(false)
-        setPaymentMessage("Confirmer! Merci")
+        setDisablePayBtn(true)
+        setPaymentMessage("Confirmation reçue! Merci")
+        pusher.disconnect();
       });
 
-      pusher.disconnect();
+      
 
   const [expanded, setExpanded] = React.useState('');
 
@@ -190,6 +192,7 @@ export default function PaymentForm(props) {
             setPaymentMessage("Confirmation En attente")
             // swal("Parfait", resp.data.status+""+resp.data.message, "success");
           } else {
+
             setPaymentStatus("0");
             setDisablePayBtn(false)
             
@@ -219,25 +222,24 @@ export default function PaymentForm(props) {
 
           let data = {
             code_reservation: localStorage.getItem("code_reservation"),
-            number: localStorage.getItem("number"),
+            number: payement.phone_number,
           }
 
           axios.get('/sanctum/csrf-cookie').then(response =>{ 
             axios.post(`/api/paygate/confirmation/check`, data).then(resp => {
               setPaymentStatus("pending");
-               console.log(resp.data);
+              //  console.log(resp.data);
                 if (resp.data.status === 200) {
                   setPaymentStatus("0");
                   setDisablePayBtn(true)
                   setPaymentMessage(resp.data.message)
                   // swal("Parfait", resp.data.status+""+resp.data.message, "success");
                 } else {
-
+                  swal("ERROR", resp.data.status+""+resp.data.message, "error");
                   setPaymentStatus("non");
                   setDisablePayBtn(false)
                   setPaymentMessage(resp.data.message)
                   setCountdown("");
-                  
                 }
             }) .catch(error => {
               // handle error

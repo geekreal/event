@@ -41,6 +41,7 @@ import PayTicket from '../components/client/Main/PayTicket';
 import UserLogin from '../Pages/client/auth/Login'
 import UserRegister from '../Pages/client/auth/Register'
 import UserProfile from '../Pages/client/auth/Profile'
+import TicketGen from '../components/client/Main/TicketGen';
 // routes
 
 const routes = [ 
@@ -52,6 +53,7 @@ const routes = [
     {path: "/event/user/login", exact: true, name: 'UserLogin', component: UserLogin},
     {path: "/event/user/register", exact: true, name: 'UserRegister' , component: UserRegister},
     {path: "/event/user/profile", exact: true, name: 'UserProfile' , component: UserProfile},
+    {path: "/event/ticket/gen", exact: true,  name: 'GenTicket', component: TicketGen},
 
     {path: "/admin", exact: true,  name: 'Admin'},
     {path: "/admin/home", exact: true, name: 'AdminHome', component: Dashboard},
@@ -84,6 +86,7 @@ const routes = [
     {path: "/admin/events/invites/edit/:id", exact: true,  name: 'EditInvites', component: EditInvites},
 
     {path: "/admin/event/ticket/create", exact: true,  name: 'CreateTicket', component: IndexTicket},
+    {path: "/admin/event/ticket/gen", exact: true,  name: 'GenTicket', component: TicketGen},
 
 
 

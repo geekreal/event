@@ -9,7 +9,9 @@ import imgBack2 from '../../../assets/client/images/bg2.png';
 import imgBack3 from '../../../assets/client/images/bg3.jpg';
 import rond from '../../../assets/client/images/rond.png';
 import man3d from '../../../assets/client/images/man3d.jpg';
-import backmo from '../../../assets/client/images/backmo.jpg';
+import web1 from '../../../assets/client/images/backmo.jpg';
+import web2 from '../../../assets/client/images/bgd.png';
+import backmo from '../../../assets/client/images/web1.jpg';
 import "@fontsource/league-spartan";
 import "@fontsource/museomoderno"
 
@@ -22,11 +24,31 @@ import "@fontsource/museomoderno"
 //     }
 
 const authStyle = makeStyles((theme) => ({
+    mainTitle: {
+        // backgroundImage: `url(${web2})`,
+        // backgroundSize:'cover',
+        // backgroundPosition: 'center',
+        // backgroundRepeat: 'no-repeat',
+        // height: "400px"
+    },
+
+    gridBack :{
+        // background: theme.palette.gradient.main3,
+        // heigh: '100%',
+        // minHeigh: '100%',
+        // backgroundImage: `url(${web1})`,
+
+        // backgroundSize:'cover',
+        // backgroundPosition: 'center',
+        // backgroundRepeat: 'no-repeat',
+    },
+
     imageHeader : {
         textAlign: 'center',
-        paddingTop:100,
-        backgroundImage: theme.palette.gradient.main3,
-        // backgroundImage: `url(${backmo})`,
+        paddingTop:50,
+        background: theme.palette.gradient.main3,
+        // backgroundImage: `url(${web2})`,
+
         backgroundSize:'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -88,14 +110,20 @@ const authStyle = makeStyles((theme) => ({
     headerTitle: {
         // paddingTop: 30,
         paddingBottom: 30,
-        fontSize: 70,
+        fontSize: 50,
         color: 'white',
         fontFamily: "MuseoModerno",
         // color: theme.palette.primary.main2,
         lineHeight: "70px",
         fontWeight: 900,
         wordSpacing: 2,
+        borderRadius: 10,
+        backgroundColor: alpha('#ffffff' ,0.08),
+        // background: theme.palette.gradient.main2,
+        textAlign: 'center',
+        margin: theme.spacing(0,2,2,2),
         padding: theme.spacing(3),
+        padding: theme.spacing(2),
         [theme.breakpoints.down('lg')]:{
             fontSize: 30,
             lineHeight: "30px",

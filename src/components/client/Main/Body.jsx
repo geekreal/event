@@ -4,7 +4,7 @@ import BodyStyle from './BodyStyle';
 import makeStyles from '@mui/material';
 import calendar from '../../../assets/client/images/calendar.jpg';
 import ticket from '../../../assets/client/images/ticket.png';
-import geo1 from '../../../assets/client/images/geo.jpg';
+import geo1 from '../../../assets/client/images/geo1.png';
 import geo from '../../../assets/client/images/geo.png';
 import contact from '../../../assets/client/images/contact.png';
 import { Container } from '@mui/system';
