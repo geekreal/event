@@ -20,11 +20,12 @@ const BodyStyle = makeStyles((theme) => ({
     },
 
     slideImg: {
-        height: '350px',
+        height: '370px',
         width: 'auto',
-        paddingRight: 5,
-        alignContent: 'center',
-        alignItems: 'center',
+        [theme.breakpoints.down('sm')]:{
+            height: '100%',
+            width: '100%',
+        },
 
     },
 
@@ -46,7 +47,7 @@ const BodyStyle = makeStyles((theme) => ({
         lineHeight: 1.1,
         [theme.breakpoints.down('sm')]: {
             fontSize: 25,
-          },
+        },
     },
     letterText :{
         textAlign: 'center',

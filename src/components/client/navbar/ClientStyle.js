@@ -9,7 +9,7 @@ import imgBack2 from '../../../assets/client/images/bg2.png';
 import imgBack3 from '../../../assets/client/images/bg3.jpg';
 import rond from '../../../assets/client/images/rond.png';
 import man3d from '../../../assets/client/images/man3d.jpg';
-import web1 from '../../../assets/client/images/backmo.jpg';
+import colorbg from '../../../assets/client/images/bgb.jpg';
 import web2 from '../../../assets/client/images/bgd.png';
 import backmo from '../../../assets/client/images/web1.jpg';
 import "@fontsource/league-spartan";
@@ -25,14 +25,20 @@ import "@fontsource/museomoderno"
 
 const authStyle = makeStyles((theme) => ({
     mainTitle: {
-        // backgroundImage: `url(${web2})`,
-        // backgroundSize:'cover',
-        // backgroundPosition: 'center',
-        // backgroundRepeat: 'no-repeat',
-        // height: "400px"
+        textAlign: 'left',
+        
+    },
+    carouselCard : {
+        // backgroundColor: alpha('#ffffff' ,0.4),
+        height: '450px',
     },
 
     gridBack :{
+        // backgroundImage: `url(${colorbg})`,
+        // backgroundSize:'cover',
+        // backgroundPosition: 'center',
+        // backgroundRepeat: 'no-repeat',
+        // height: "700px"
         // background: theme.palette.gradient.main3,
         // heigh: '100%',
         // minHeigh: '100%',
@@ -44,19 +50,19 @@ const authStyle = makeStyles((theme) => ({
     },
 
     imageHeader : {
-        textAlign: 'center',
+        // textAlign: 'start',
         paddingTop:50,
         background: theme.palette.gradient.main3,
-        // backgroundImage: `url(${web2})`,
-
+        backgroundImage: `url(${colorbg})`,
         backgroundSize:'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        minHeight: "100%",
+        height: "600px",
         [theme.breakpoints.down('sm')]: {
             marginTop:5,
             padding: theme.spacing(2),
             width: 'auto',
+            height: 'auto',
             
         },
     },
@@ -108,27 +114,24 @@ const authStyle = makeStyles((theme) => ({
 
 
     headerTitle: {
-        // paddingTop: 30,
-        paddingBottom: 30,
-        fontSize: 50,
+        fontSize: 70,
         color: 'white',
-        fontFamily: "MuseoModerno",
-        // color: theme.palette.primary.main2,
+        height: "450px",
         lineHeight: "70px",
-        fontWeight: 900,
-        wordSpacing: 2,
+        fontWeight: 1000,
+        wordSpacing: 0,
         borderRadius: 10,
         backgroundColor: alpha('#ffffff' ,0.08),
-        // background: theme.palette.gradient.main2,
-        textAlign: 'center',
-        margin: theme.spacing(0,2,2,2),
-        padding: theme.spacing(3),
-        padding: theme.spacing(2),
+        textAlign: 'left',
+        margin: theme.spacing(0,1,1,1),
+        padding: theme.spacing(5),
         [theme.breakpoints.down('lg')]:{
             fontSize: 30,
-            lineHeight: "30px",
+            lineHeight: "40px",
             fontWeight: 600,
             wordSpacing: 1,
+            padding: theme.spacing(3),
+            margin: theme.spacing(0),
         },
     },
 
@@ -259,7 +262,7 @@ const authStyle = makeStyles((theme) => ({
 
     },
     navText : {
-
+        
     },
     menusBox :{
         // paddingLeft: theme.spacing(50),

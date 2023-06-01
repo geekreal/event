@@ -10,6 +10,7 @@ import { ThemeProvider } from '@mui/material/styles';
 // import {theme} from './components/admin/theme';
 import ClientTheme from './components/client/ClientTheme';
 
+
 ReactDOM.render(
   <React.StrictMode>
       <ThemeProvider theme={ClientTheme}>

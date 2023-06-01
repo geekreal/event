@@ -1,5 +1,5 @@
 import { VpnKey } from '@mui/icons-material';
-import { Avatar, Button, Chip, Container, Divider, Grid, Paper, TextField, Typography } from '@mui/material';
+import { Alert, Avatar, Button, Chip, Container, Divider, Grid, Paper, Snackbar, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react'
 import useStyle from './Style';
@@ -9,10 +9,13 @@ import ClientNavBar from '../../../components/client/navbar/ClientNavbar';
 import swal from 'sweetalert';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom/cjs/react-router-dom';
+import Loading from 'react-loading';
 
 
 const Login = () => {
     const [register, setRegiste] = useState(false);
+    const [loading, setLoading] = useState(false);
     const history = useHistory();
     const classes = useStyle();
 
@@ -34,17 +37,25 @@ const Login = () => {
 
         setRegister({ ...registerInput, [e.target.name]: e.target.value });
     };
+
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [message, setMessage] = useState("");
+    const [snackbarColor, setSnackbarColor] = useState("");
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false);
+    };
       // inscription
       const registerSubmit = (e) => {
         //TODO handle form submit
         e.preventDefault();
+        setLoading(true)
 
         const data =  {
             name: registerInput.name,
-            prenom: registerInput.prenom,
+            // prenom: registerInput.prenom,
             email: registerInput.email,
-            telephone: registerInput.telephone,
-            adresse: registerInput.adresse,
+            // telephone: registerInput.telephone,
+            // adresse: registerInput.adresse,
             pays: registerInput.pays,
             password: registerInput.password,
             type_user: "USER",
@@ -54,26 +65,53 @@ const Login = () => {
         //config/'supports_credentials' => true, dans laravel
         axios.get('/sanctum/csrf-cookie').then(response =>{ 
             axios.post(`/api/admin/register/`, data).then(resp => {
+                localStorage.setItem('redis_user_mail', registerInput.email);
                 if (resp.data.status === 200) {
-                    localStorage.setItem('auth_token' , resp.data.auth_token)
-                    localStorage.setItem('auth_name' , resp.data.username)
-                    swal("Parfait", resp.data.message, "success");
-                    history.push('/admin/home');
+                    localStorage.setItem('redis_user_auth_token' , resp.data.auth_token);
+                    localStorage.setItem('redis_user_auth_name' , resp.data.username);
+                    
+                    setSnackbarColor("success");
+                    setOpenSnackbar(true);
+                    setMessage(resp.data.message)
+                    setLoading(false)
+
+                    history.push('/event/user/verify-email');
                 } else {
+                    setSnackbarColor("error");
+                    setOpenSnackbar(true);
+                    setMessage(resp.data.message)
+                    setLoading(false)
                     setRegister({...registerInput , error_list: resp.data.validation_errors })
                 }
             });
+        })
+        .catch((error) => {
+            // Error
+            setLoading(false)
+            console.log(error.message);
         });
     }
     
 
     return (
         <div>
-            <Grid container 
-            // sx={{
-            //     marginTop: -1,
-            // }} 
-            >
+            {/* <ClientNavBar/> */}
+            <Grid container className={classes.backContainer}>
+
+            {openSnackbar? <Fragment>
+                <Snackbar
+                    anchorOrigin={{ vertical: 'top', horizontal:'center' }}
+                    autoHideDuration={10000}
+                    open={openSnackbar}
+                    onClose={handleCloseSnackbar}
+                    key={"top" + "right"}
+                >
+                    <Alert onClose={handleCloseSnackbar} severity={snackbarColor} sx={{ width: '100%' }}>
+                        {message}
+                    </Alert>
+                </Snackbar>
+            </Fragment> : ""}
+
                 <Grid item xs={12} sm={6} className={classes.leftGrid}>
                     <Typography variant='h3' className={classes.leftGridText}>
                         Le debut d'une nouvelle aventure
@@ -92,7 +130,7 @@ const Login = () => {
                         }}>
                             <Typography align='center' variant='h6' 
                     sx={{margin: 2}} >
-                        Déjà membre ? Se connecter!
+                        Vous êtes déjà membre ? <Link to='/event/user/login'> Connectez-vous</Link> 
                     </Typography>
                             <Container  sx={{marginBottom: 2,}}>
                                 <GoogleButton
@@ -148,16 +186,26 @@ const Login = () => {
 
                             <Container>
                                 <form onSubmit={registerSubmit} className={classes.rightGrid} >
-                                    <TextField
+                                     <TextField
                                         fullWidth
                                         margin='dense' size='small'name='name' 
                                         onChange={handleInput} value={registerInput.name}
-                                        id="name" label="Karl Jons" variant="outlined"
+                                        id="name" label="Nom et prénom" variant="outlined"
+                                    />
+                                    {/*<Typography variant='p' component="span">
+                                        {registerInput.error_list.name}
+                                    </Typography><br/> */}
+                                   
+                                    {/* <TextField
+                                        fullWidth
+                                        margin='dense' size='telephone' name='telephone' 
+                                        onChange={handleInput} value={registerInput.telephone}
+                                        id="telephone" label="telephone" variant="outlined"
                                     />
                                     <Typography variant='p' component="span">
-                                        {registerInput.error_list.name}
-                                    </Typography><br/>
-                                   
+                                        {registerInput.error_list.telephone}
+                                    </Typography><br/> */}
+
                                     <TextField
                                         fullWidth
                                         margin='dense' size='small' name='email' 
@@ -174,12 +222,12 @@ const Login = () => {
                                         onChange={handleInput} value={registerInput.pays}
                                         id="pays" label="pays" variant="outlined"
                                     />
-                                    <Typography variant='p' component="pays">
+                                    <Typography variant='p'>
                                         {registerInput.error_list.name}
                                     </Typography><br/>
 
 
-                                    <TextField
+                                    {/* <TextField
                                         fullWidth
                                         margin='dense' size='ville' name='adresse' 
                                         onChange={handleInput} value={registerInput.adresse}
@@ -187,17 +235,7 @@ const Login = () => {
                                     />
                                     <Typography variant='p' component="span">
                                         {registerInput.error_list.adresse}
-                                    </Typography><br/>
-
-                                    <TextField
-                                        fullWidth
-                                        margin='dense' size='telephone' name='telephone' 
-                                        onChange={handleInput} value={registerInput.telephone}
-                                        id="telephone" label="telephone" variant="outlined"
-                                    />
-                                    <Typography variant='p' component="span">
-                                        {registerInput.error_list.telephone}
-                                    </Typography><br/>
+                                    </Typography><br/> */}
                                     
                                     <TextField fullWidth margin='dense'
                                     size='small'
@@ -219,7 +257,6 @@ const Login = () => {
                                         {registerInput.error_list.password_confirmation}
                                     </Typography><br/>
 
-                                    
                                     <Typography variant='p' sx={{
                                         fontSize: 13,
                                         lineHeight: 1.6,
@@ -235,7 +272,7 @@ const Login = () => {
                                         size="large"
                                         type='submit'
                                     >
-                                        Connexion
+                                        {loading ? <Loading type='balls' color="white" height={40} width={40} delay={0.5}/> : 'Inscription'}
                                     </Button>
                                     {/* <Button
                                         color="primary"

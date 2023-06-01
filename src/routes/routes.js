@@ -42,7 +42,13 @@ import UserLogin from '../Pages/client/auth/Login'
 import UserRegister from '../Pages/client/auth/Register'
 import UserProfile from '../Pages/client/auth/Profile'
 import TicketGen from '../components/client/Main/TicketGen';
+
+// email
+import SendVerifyCode from '../Pages/client/emails/SendCodePage'
+import SendCodePage from '../Pages/client/emails/SendCodePage';
+
 // routes
+
 
 const routes = [ 
     {path: "/", exact: true,  name: 'Home' },
@@ -54,6 +60,11 @@ const routes = [
     {path: "/event/user/register", exact: true, name: 'UserRegister' , component: UserRegister},
     {path: "/event/user/profile", exact: true, name: 'UserProfile' , component: UserProfile},
     {path: "/event/ticket/gen", exact: true,  name: 'GenTicket', component: TicketGen},
+
+
+    // email
+    {path: "/event/user/verify-email", exact: true, name: 'SendCodePage' , component: SendCodePage},
+
 
     {path: "/admin", exact: true,  name: 'Admin'},
     {path: "/admin/home", exact: true, name: 'AdminHome', component: Dashboard},

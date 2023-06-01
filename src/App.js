@@ -28,16 +28,21 @@ import './assets/css/map-box-gl.css';
 // client auth
 import UserRegister from './Pages/client/auth/Register';
 import UserLogin from './Pages/client/auth/Login';
+import SendCodePage from './Pages/client/emails/SendCodePage';
+
 import { Redirect } from 'react-router-dom/cjs/react-router-dom';
 import Register from './Pages/admin/auth/Register';
+
 import { useState } from 'react';
 import Header from './components/client/navbar/Header';
 import Start from './components/client/navbar/Start';
+import ClientPrivateRoute from './ClientPrivateRoute';
 
 axios.defaults.headers.post['Accept'] = 'application/json'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 axios.defaults.withCredentials = true;
+
 axios.interceptors.request.use(function(config){
   const token = localStorage.getItem('auth_token');
   config.headers.Authorization  = token ? `Bearer ${token}` : '';
@@ -46,6 +51,7 @@ axios.interceptors.request.use(function(config){
 
 // axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.baseURL = "https://ivenos.tecmatrix.net";
+
 // https://b84e-102-64-216-121.eu.ngrok.io
 // const theme= 
 const useStyles = makeStyles((themes) => ({
@@ -56,6 +62,7 @@ const useStyles = makeStyles((themes) => ({
     alignItems: 'center',
     marginTop: themes.spacing(5),
   },
+
 }));
 
 function App() {
@@ -73,14 +80,25 @@ function App() {
         <div className={classes.container}>
           <Router>
             <Switch>
-              <Route path='/' name="Accueil" component = {Home}/>
+              {/* <Route path='/' name="Home" component = {Home}/> */}
               {/* <Route exact path='/start' component = {Start}/> */}
               
+              <Route path='/event/user/login'>
+                {localStorage.getItem('redis_user_auth_token') ? <Redirect to='/'/> : <UserLogin/>}
+              </Route>
+              <Route path='/event/user/register'>
+                {localStorage.getItem('redis_user_auth_token') ? <Redirect to='/'/> : <UserRegister/>}
+              </Route>
+
+              <Route path='/event/user/verify-email'>
+                {localStorage.getItem('redis_user_auth_token') ? <Redirect to='/'/> : <SendCodePage/>}
+              </Route>
+
               <Route path='/admin-login'>
-                {localStorage.getItem('auth_token') ? <Redirect to='/'/> : <Login/>}
+                {localStorage.getItem('auth_token') ? <Redirect to='/admin'/> : <Login/>}
               </Route>
               <Route path='/admin-register'>
-                {localStorage.getItem('auth_token') ? <Redirect to='/'/> : <Register/>}
+                {localStorage.getItem('auth_token') ? <Redirect to='/admin'/> : <Register/>}
               </Route>
               {/* <Route path='/admin-register' component = {AdminRegister}/>
               <Route path='/admin-login' component = {AdminLogin}/> */}
@@ -89,6 +107,7 @@ function App() {
               {/* <Route path="/admin" name='Admin'  render={(props) => <MasterHome {...props} />} /> */}
 
               <AdminPrivateRoute path="/admin" name='Admin' />
+              <ClientPrivateRoute path="/" name='Home' />
             </Switch>
           </Router>
         </div>

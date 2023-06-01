@@ -107,18 +107,23 @@ const Header = () => {
         <Grid container columns={{ xs: 2, sm: 12, md: 12 }} className={classes.gridBack}>
           <Grid item xs={6} className={classes.mainTitle}>
             <div  className={classes.headerTitle} > 
-              IVENOS, Le monde est plus prêt de vous
-              <Typography sx={{color: "WHITE" , lineHeight: 1, marginTop: 2,}}>
+              Le monde est plus proche de vous
+              <Typography 
+              sx={{color: "white" , 
+              lineHeight: 1, marginTop: 2,marginBottom: 4, 
+              fontSize: 25 , fontWeight: 100}}>
                 Nous sommes convaincus que participer aux évènements permet d'agrandir vos relations.
               </Typography>
               <div>
-              <Link to='/event/start' className={classes.navText}>
-                <Button component={motion.button} whileHover={{scale: 1.2, transition: { duration: 1 },}} sx={{background: "#ED9A15"}}
-                  whileTap={{ scale: 0.9 }} variant='contained' title='Entrer' size='large' className={classes.startButton}>
-                  <div className={classes.startButtonText}>
-                    Explorer
-                  </div>
-                </Button>
+                <Link to='/event/start' className={classes.navText}>
+                  <Button component={motion.button} 
+                  whileHover={{scale: 1.2, transition: { duration: 0.7 },}} 
+                  sx={{background: "#ED9A15"}}
+                    whileTap={{ scale: 0.9 }} variant='contained' title='Entrer' size='small' className={classes.startButton}>
+                    <div className={classes.startButtonText}>
+                      Commnencer
+                    </div>
+                  </Button>
                 </Link>
               </div>
             </div>

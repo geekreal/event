@@ -11,7 +11,7 @@ import backmo from '../../../assets/client/images/backmo.jpg';
 import swal from 'sweetalert';
 import ReactLoading from 'react-loading';
 import { useState } from 'react';
-
+import { makeStyles } from '@mui/styles';
 
 const Home = () => {
   const classes = HomeStyle();
@@ -30,7 +30,20 @@ const Home = () => {
 
   return (
     <>
-    {loading ? <ReactLoading type='balls' color='red'/> :
+    {loading ? <Fragment>
+      <div style={{
+        opacity: 3,
+        position: 'fixed',
+        height: '100%',
+        width: '100%',
+        top: 0,
+        left: 0,
+        zIndex: 9999,
+        background: "linear-gradient(to top, #00255B , #00255B, #001137)",
+        overflow: 'hidden',}}>
+      <ReactLoading type='balls' color='#fff' />
+      </div>
+      </Fragment> :
       <Box>
         <CssBaseline sx={{ display: 'flex',}}/>
         <Box sx={{flexGrow: 1, height: 700, }}>

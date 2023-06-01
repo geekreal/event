@@ -46,7 +46,7 @@ const ClientTheme = createTheme({
       // ba0578 jaune
       // 00255B teal
       //rose A0024E
-      main: "linear-gradient(to right, #001137, #001137)", //jaune
+      main: "linear-gradient(to right, #001137, #001137)", //bleu-actuel
       main2: "linear-gradient(to right, #00255B, #00255B)", //teal
       main3: "linear-gradient(to top, #00255B , #00255B, #001137)",
       yellow: "#fcaf3c",//jaune

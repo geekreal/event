@@ -129,9 +129,6 @@ function PayTicket(props) {
 
     useEffect(() => {
 
-        if(localStorage.getItem("ticketNb") !== 0){
-            setActiveBtn(false);
-        }  
         const id = props.match.params.id;
         //   ticket info
           axios.get(`api/user/event/${id}/info`).then(res=> {
@@ -146,6 +143,10 @@ function PayTicket(props) {
                     eventLieu: res.data.ticket.pays+'-'+res.data.ticket.lieu,
                     dayDiff:Math.floor((Date.parse(res.data.ticket.date) - Date.parse(new Date()) ) / 86400000),
                   })
+
+                  if(ticketInput.dayDiff <= -1){
+                    localStorage.setItem("ticketNb", 0);
+                  }
                   setLoadSkeleton(false)
                 //   console.log("ticketInput",ticketInput)
             }else{
@@ -168,6 +169,9 @@ function PayTicket(props) {
         if(ticketInput.dayDiff < 0){
             setActiveBtn(true);
         } 
+        if(localStorage.getItem("ticketNb") == 0){
+            setActiveBtn(true);
+        }  
     }, []);
 
     const paymentClick = () =>{
@@ -190,7 +194,7 @@ function PayTicket(props) {
                     {ticketInput.eventNom}
                     <div component='Typography' className={classes.bannerTextDesc}>
                     <Typography variant="subtitle1" color="text.secondary" sx={{margin: 0.5, fontSize: 18}}>
-                        {ticketInput.dayDiff <= -1 ? (<Fragment>{ticketInput.dayDiff}Status :<Chip label="Déjà passé" color="error" /></Fragment>
+                        {ticketInput.dayDiff <= -1 ? (<Fragment><Chip label="Evènement Déjà passé" color="error" /></Fragment>
                         ):(<Fragment></Fragment>)}
 
                         {ticketInput.dayDiff === 0 ? (<Fragment><Chip label="C'est aujourd' hui" color="error" /></Fragment>
