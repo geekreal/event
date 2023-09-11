@@ -50,6 +50,7 @@ axios.interceptors.request.use(function(config){
 });
 
 // axios.defaults.baseURL = "http://localhost:8000/";
+//mise à jour de  l'url de base
 axios.defaults.baseURL = "https://ivenos.fianumarket.com";
 
 // https://b84e-102-64-216-121.eu.ngrok.io
