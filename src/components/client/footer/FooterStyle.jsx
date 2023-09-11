@@ -1,14 +1,16 @@
 import React from 'react'
 import makeStyles from '@mui/styles/makeStyles';
 import { theme } from '../ClientTheme'
+import { alpha } from '@mui/material';
 
 const FooterStyle = makeStyles((theme) => ({
     footerContent: {
         padding: theme.spacing(2),
-        background: theme.palette.primary.main,
+        margin: theme.spacing(4),
+        backgroundColor: alpha(theme.palette.primary.main3 ,0.3),
+        // background: theme.palette.primary.main,
         fontSize: 18,
         fontWeight: 800,
-        minWidth: '100%'
     },
 
     footerGrid: {

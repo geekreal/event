@@ -69,6 +69,8 @@ const Login = () => {
                 if (resp.data.status === 200) {
                     localStorage.setItem('redis_user_auth_token' , resp.data.auth_token);
                     localStorage.setItem('redis_user_auth_name' , resp.data.username);
+                    localStorage.setItem('redis_user_auth_id' , resp.data.user_id);
+
                     
                     setSnackbarColor("success");
                     setOpenSnackbar(true);

@@ -347,13 +347,13 @@ const Start = () => {
           }
       );
       axios.get('api/user/events/list').then(res=> {
-        console.log(res.data.events);
+        // console.log(res.data.events);
           if (res.status === 200) {
               setEventList(res.data.events);
               setSearchList(res.data.events);
               setLoadSkeleton(false);
           }
-          console.log("status ", res.status, eventList);
+          // console.log("status ", res.status, eventList);
           // setLoading(false);
       });
 
@@ -376,7 +376,8 @@ const Start = () => {
     {/* {show && */}
     <Slide in={true} direction='up' mountOnEnter unmountOnExit duration={30000} appear={false}> 
       <div>
-      {/* 
+      {
+      /* 
       <div  className={classes.headerTitle}>
         Vous êtes de plus en plus proche du monde.
         <Grid container className={classesBody.topGridSlide}>
@@ -449,9 +450,9 @@ const Start = () => {
                         startAdornment: <InputAdornment position="end"><SearchSharp/></InputAdornment>,
                         // inputMode: 'numeric', pattern: '[0-9]*'
                       }} /> */}
-                      <TextField variant='outlined' size='large' color='primary'
-                      sx={{borderRadius: '1px solid white'}}
+                      <TextField variant='outlined' size='large'
                       fullWidth value={searchInput.search}
+                      color='primary'
                       InputProps={{
                         startAdornment: <InputAdornment position="end"><SearchSharp/></InputAdornment>,
                         // inputMode: 'numeric', pattern: '[0-9]*'
@@ -459,21 +460,25 @@ const Start = () => {
                       onChange={SearchChange}/>
                   </Grid>
                   <Grid item>
-                  <Grid container className={classes.actionBtnDiv}>
+                  <Grid container className={classes.actionBtnDiv}direction='row'>
 
                     {/* <Button  variant='contained' component='div' className={classes.actionBtn} sx={{
                       marginLeft: 2,
                       marginBottom: 2,
                     }}> */}
-                    <Grid item className={classes.actionTitleGrid} sx={{display: 'block'}} direction='row'>
-                    <Button variant='contained' size='large' component='div' sx={{margin: (1,0,1,1), background:"#fcaf3c"}} onClick={showSearch} className={classes.actionBtn}>
+                    <Grid item className={classes.actionTitleGrid} sx={{display: 'block'}} >
+                    <Button variant='contained' size='large' 
+                    sx={{margin: (1,0,1,1), background : '#06142e'}} 
+                    onClick={showSearch} className={classes.actionBtn}>
                       <Celebration sx={{ fontSize: 30 , marginRight :  theme.spacing(2)}} />
                       <Typography variant='btnText' component='div' className={classes.headerBtnText} sx={{lineHeight: 1}}>
                         Univers des évènements
                       </Typography>
                     </Button> 
-                    <Button variant='contained' size='large' component='div' sx={{margin: (1,0,1,1), background:"#fcaf3c"}} onClick={showSearch} className={classes.actionBtn}>
-                    <Place sx={{ fontSize: 30 , marginRight :  theme.spacing(2)}}/>
+                    <Button variant='contained' size='large'  
+                    sx={{margin: (1,0,1,1), background : '#06142e'}}  
+                    onClick={showSearch} className={classes.actionBtn}>
+                    <Place sx={{ fontSize: 30 , marginRight :  theme.spacing(2)}} color='primary'/>
                     <Typography variant='btnText' component='div' className={classes.headerBtnText} sx={{lineHeight: 1}}>
                         Evènements chez moi
                       </Typography>
@@ -490,7 +495,7 @@ const Start = () => {
 
             {/* Les evènements */}
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 12 }} className={classes.eventContainer}>
-              <Grid item xs={2} sm={2} md={3} sx={{background: '#fcaf3c', marginTop: 4}}>
+              <Grid item xs={2} sm={2} md={3} sx={{ marginTop: 4}} className={classes.eventFilterBlock}>
                 <div className={classes.filterAction}>
                   <Box elevation={6} className={classes.filterPaper}>
                     <Grid container className={classesBody.gridSlide} direction='column'>
@@ -645,15 +650,17 @@ const Start = () => {
                       <Fragment>
                            {searchList.map((item) =>
                             <Grid item xs={6} sm={4} md={4} sx={{padding: 1}}   key={item.id}>
-                              <Card sx={{ maxWidth: 400, background: alpha("#ffff" , 0.1), color: 'white', borderRadius: 5 }} className={classes.eventSingle}>
+                              <Card sx={{ maxWidth: 400, borderRadius: 5 }} className={classes.eventSingle}>
                                   <CardHeader
                                     avatar={loadSkeleton ? (<Skeleton animation="wave" width={40} height={40}  variant='circular' sx={{background: alpha("#ffff" , 0.1)}} />
                                     ):(
-                                    <Avatar sx={{ bgcolor: '#fcaf3c', color: 'white',  }} aria-label="recipe">O</Avatar>)}
-                                    action={loadSkeleton ? (<Skeleton animation="wave" width={40} height={40}  variant='circular' sx={{background: alpha("#ffff" , 0.1)}} />
+                                      <Avatar className={classes.eventAvatar} aria-label="recipe" src='0'/>
+                                    )}
+                                    action={loadSkeleton ? (<Skeleton animation="wave" width={40} height={40}  
+                                    variant='circular' sx={{background: alpha("#ffff" , 0.1)}} />
                                     ):(
                                       <Link to={`/event/${item.id}/ticket/`}>
-                                        <IconButton aria-label="settings" sx={{color: 'white', }}>
+                                        <IconButton aria-label="settings" sx={{ }}>
                                           <MonetizationOn />
                                         </IconButton>
                                       </Link>)}
@@ -663,7 +670,8 @@ const Start = () => {
                                     <div className={classes.eventTitle}>{item.nom}</div>)}
 
                                     subheader={loadSkeleton ?(<Skeleton animation="wave"  height={10} width="60%" variant='text' sx={{background: alpha("#ffff" , 0.1)}} />
-                                    ):(<div className={classes.eventSubTitle} style={{display: 'flex', alignItems: 'center',color: 'white', alignContent:'center'}}>
+                                    ):(<div className={classes.eventSubTitle} 
+                                    style={{display: 'flex', alignItems: 'center', alignContent:'center'}}>
                                     <DistanceCalc  latitude1={userLocation.userLat} longitude1={userLocation.userLng} 
                                     latitude2={item.latitude}  longitude2={item.longitude}/> 
                                     <p style={{marginLeft: 2}}>{item.type}</p>
@@ -683,10 +691,10 @@ const Start = () => {
                                       <Skeleton animation="wave" height={10} width="80%" sx={{background: alpha("#ffff" , 0.1)}}/> 
                                   </Fragment>
                                   ):(<Fragment>
-                                      <Typography variant="subtitle1" sx={{color: 'white', fontSize: 14}}>
+                                      <Typography variant="subtitle1" sx={{ fontSize: 14}}>
                                           {item.date}
                                         </Typography>
-                                        <Typography variant="body2" sx={{color: 'white', fontSize: 14}}>
+                                        <Typography variant="body2" sx={{ fontSize: 14}}>
                                           {item.description}
                                         </Typography>
                                       </Fragment>) }
@@ -698,7 +706,7 @@ const Start = () => {
                                       <Skeleton animation="wave" variant='circular' height={30} width={30} sx={{background: alpha("#ffff" , 0.1)}}/> 
                                   </Fragment>
                                   ):(
-                                  <IconButton aria-label="Lieu" sx={{color: '#fcaf3c',display: 'flex',alignItems: 'center',flexWrap: 'wrap',fontSize: 10, }} >
+                                  <IconButton aria-label="Lieu" className={classes.eventGridActionBtn} sx={{display: 'flex',alignItems: 'center',flexWrap: 'wrap',fontSize: 10, }} >
                                     <PlaceSharp />
                                     <span>{item.lieu}</span>
                                   </IconButton>)}
@@ -707,11 +715,15 @@ const Start = () => {
                                       <Skeleton animation="wave" variant='circular' height={30} width={30} sx={{background: alpha("#ffff" , 0.1)}}/> 
                                   </Fragment>
                                   ):(
-                                  <IconButton onClick={() => openMapFunction(item.latitude, item.longitude, item.ville+", "+item.lieu+", "+item.pays)} aria-label="add to favorites" 
-                                  sx={{color: '#fcaf3c',display: 'flex',alignItems: 'center', flexWrap: 'wrap',fontSize: 10, }} >
-                                      <GpsFixed />
-                                      <span>Itineraire</span>
-                                  </IconButton>)}
+                                    <Link to={`/event/map/view/${item.id}`}>
+                                      <IconButton 
+                                      // onClick={() => openMapFunction(item.latitude, item.longitude, item.ville+", "+item.lieu+", "+item.pays)} 
+                                      aria-label="add to favorites" 
+                                      className={classes.eventGridActionBtn} sx={{display: 'flex',alignItems: 'center', flexWrap: 'wrap',fontSize: 10, }} >
+                                          <GpsFixed />
+                                          <span>Itineraire</span>
+                                      </IconButton>
+                                    </Link>)}
                                   {loadSkeleton ? 
                                   (<Fragment> 
                                       <Skeleton animation="wave" variant='circular' height={30} width={30} sx={{background: alpha("#ffff" , 0.1)}}/> 

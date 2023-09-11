@@ -24,10 +24,18 @@ const helvetica = {
 };
 
 const ClientTheme = createTheme({
+  root: {
+    background :'linear-gradient(to right, #06142e, #1b3358,  #f1916d)',
+  },
   palette: {
     primary: {
-      main: "#001137",
-      main2: "#00255B",
+      main: "#ffffff",//blanc
+      main0: "#06142e",//bleu pur
+      main2: "#1b3358",  //bleu
+      main3: '#473e66', //Bleu occre
+      main4: '#bd83b8', //violet
+      main5: '#f7d7db', //blanc
+      main6: '#fb8989',//orange pal
     },
     btn: {
       main: "#001137",
@@ -35,7 +43,7 @@ const ClientTheme = createTheme({
       main3:'#fcaf3c',
     },
     secondary: {
-      main: "#001137",
+      main: "#bd83b8",
       
       
     },
@@ -46,12 +54,11 @@ const ClientTheme = createTheme({
       // ba0578 jaune
       // 00255B teal
       //rose A0024E
-      main: "linear-gradient(to right, #001137, #001137)", //bleu-actuel
-      main2: "linear-gradient(to right, #00255B, #00255B)", //teal
-      main3: "linear-gradient(to top, #00255B , #00255B, #001137)",
-      yellow: "#fcaf3c",//jaune
-      darkBlue: "#001137",//jaune
-      blue: "#05BCC1",//jaune
+      main: "linear-gradient(to right, #bd83b8, #bd83b8)", //bleu-actuel
+      main3: "linear-gradient(to right, #1b3358, #473e66,  #bd83b8)", //white base
+      main2: "linear-gradient(to top, #00255B , #00255B, #001137)",
+      yellow: "#fff89a",//jaune
+      blue: "#b4e4ff",//jaune
     }
   },//en palette
 

@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 import HomeStyle from './Style';
+import ClientStyle from '../../../components/client/navbar/ClientStyle';
 import { Box, Container, CssBaseline, Grid, Slide } from '@mui/material';
 import ClientNavBar from '../../../components/client/navbar/ClientNavbar'
 import Header from '../../../components/client/navbar/Header';
@@ -12,9 +13,10 @@ import swal from 'sweetalert';
 import ReactLoading from 'react-loading';
 import { useState } from 'react';
 import { makeStyles } from '@mui/styles';
+import PartnersLists from '../../../components/client/Main/PartnersLists';
 
 const Home = () => {
-  const classes = HomeStyle();
+  const classes = ClientStyle();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -29,7 +31,7 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <div  className={classes.homeBody}>
     {loading ? <Fragment>
       <div style={{
         opacity: 3,
@@ -39,14 +41,14 @@ const Home = () => {
         top: 0,
         left: 0,
         zIndex: 9999,
-        background: "linear-gradient(to top, #00255B , #00255B, #001137)",
+        background: "linear-gradient(to right, #06142e, #1b3358,  #f1916d)",
         overflow: 'hidden',}}>
       <ReactLoading type='balls' color='#fff' />
       </div>
       </Fragment> :
-      <Box>
+      <Box >
         <CssBaseline sx={{ display: 'flex',}}/>
-        <Box sx={{flexGrow: 1, height: 700, }}>
+        <Box sx={{flexGrow: 1, height: 'auto', }}>
           {/* Navar */}
           <ClientNavBar/>
 
@@ -70,7 +72,7 @@ const Home = () => {
             </Switch>
 
           {/* <ClientNavBar/> */}
-
+          <PartnersLists/>
           {/* Header */}
           {/* <Header/> */}
 
@@ -82,7 +84,7 @@ const Home = () => {
           
         </Box>
       </Box>
-    }</>
+    }</div>
   )
 }
 

@@ -10,8 +10,10 @@ import imgBack3 from '../../../assets/client/images/bg3.jpg';
 import rond from '../../../assets/client/images/rond.png';
 import man3d from '../../../assets/client/images/man3d.jpg';
 import colorbg from '../../../assets/client/images/bgb.jpg';
-import web2 from '../../../assets/client/images/bgd.png';
-import backmo from '../../../assets/client/images/web1.jpg';
+import webGb1 from '../../../assets/client/images/WebBackground.jpg';
+import webBg from '../../../assets/client/images/webBg.png';
+import shape1 from '../../../assets/client/images/Shape1.png';
+import shape2 from '../../../assets/client/images/Shape2.png';
 import "@fontsource/league-spartan";
 import "@fontsource/museomoderno"
 
@@ -24,8 +26,17 @@ import "@fontsource/museomoderno"
 //     }
 
 const authStyle = makeStyles((theme) => ({
+
+    homeBody :{
+        background: theme.palette.gradient.main3,
+    },
+
     mainTitle: {
+        textAlign: 'center',
+        display: 'flex',
+        width: '100vh',
         textAlign: 'left',
+        padding: 2,
         
     },
     carouselCard : {
@@ -34,6 +45,14 @@ const authStyle = makeStyles((theme) => ({
     },
 
     gridBack :{
+        backgroundImage: `url(${shape2})`,
+        backgroundRepeat: 'repeat-x',
+        backgroundSize: '400px',
+        transition: 'all 1s ease-in-out',
+        [theme.breakpoints.down('lg')]:{
+            backgroundRepeat: 'repeat-y',
+        }
+        
         // backgroundImage: `url(${colorbg})`,
         // backgroundSize:'cover',
         // backgroundPosition: 'center',
@@ -50,16 +69,16 @@ const authStyle = makeStyles((theme) => ({
     },
 
     imageHeader : {
-        // textAlign: 'start',
+        
         paddingTop:50,
         background: theme.palette.gradient.main3,
-        backgroundImage: `url(${colorbg})`,
+        // backgroundImage: `url(${webBg})`,
         backgroundSize:'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         height: "600px",
         [theme.breakpoints.down('sm')]: {
-            marginTop:5,
+            paddingTop: theme.spacing(10),
             padding: theme.spacing(2),
             width: 'auto',
             height: 'auto',
@@ -67,14 +86,39 @@ const authStyle = makeStyles((theme) => ({
         },
     },
 
+    createEventButton: {
+        height: 60,
+        background: theme.palette.gradient.main,
+    },
+
     startButton: {
-        height: 100,
-        backgroundColor: "white",
+        height: 60,
+        background: theme.palette.gradient.main3,
+        "&:hover": {
+            backgroundColor: theme.palette.gradient.main3,
+            cursor:'pointer'
+          }
+        // position: 'absolute',
+    },
+
+    downloadBtn: {
+        height: 50,
+        display: 'inline-block',
+        "&:hover": {
+            backgroundColor: theme.palette.gradient.main3,
+            cursor:'pointer'
+          }
         // position: 'absolute',
     },
 
     startButtonText: {
-        fontSize: 25,
+        color: theme.palette.primary.main,
+
+    },
+    downloadButtonText: {
+        fontSize: 18,
+        color: theme.palette.primary.main,
+
     },
 
     headerBack:{
@@ -112,23 +156,21 @@ const authStyle = makeStyles((theme) => ({
         height: 100,
     },
 
-
     headerTitle: {
         fontSize: 70,
-        color: 'white',
-        height: "450px",
+        color: theme.palette.primary.main5,
         lineHeight: "70px",
-        fontWeight: 1000,
+        fontWeight: 800,
         wordSpacing: 0,
-        borderRadius: 10,
-        backgroundColor: alpha('#ffffff' ,0.08),
+        width: 'auto',
         textAlign: 'left',
+        padding: 10,
         margin: theme.spacing(0,1,1,1),
         padding: theme.spacing(5),
         [theme.breakpoints.down('lg')]:{
-            fontSize: 30,
-            lineHeight: "40px",
-            fontWeight: 600,
+            fontSize: 45,
+            lineHeight: "50px",
+            fontWeight: 700,
             wordSpacing: 1,
             padding: theme.spacing(3),
             margin: theme.spacing(0),
@@ -136,29 +178,30 @@ const authStyle = makeStyles((theme) => ({
     },
 
     headerDesc: {
-        color: "#fff",
-        // [theme.breakpoints.down('lg')] : {
-        //     width: 300,
-        // },
-        // width: 450,
+        color: theme.palette.primary.main1,
+        [theme.breakpoints.down('sm')] : {
+            width: 300,
+        },
+        width: 450,
         padding: theme.spacing(1),
+        
     },
 
     headerBtn: {
         display: 'flex',
         // background: theme.palette.gradient.main3,
-        width: 300,
+        width: 100,
         heigh: 200,
         "&:hover": {
-            background: theme.palette.gradient.main2,
+            background: theme.palette.gradient.main3,
             cursor:'pointer'
           }
     },
 
     appBar : {
         // marginBottom: theme.spacing(4),
-        background : 'transparent',
-        paddingTop: "9px",
+        background : 'none',
+        paddingTop: theme.spacing(5),
         // minWidth: '450px',
     },
 
@@ -172,13 +215,14 @@ const authStyle = makeStyles((theme) => ({
     },
 
     action :{
-        padding: theme.spacing(5,1,0,1),
+        padding: theme.spacing(10,5,5,5),//top,left,bottom,right
     },
 
     paperAction :{
         // borderRadius: "50%",
         borderRadius: 5,
-        background: alpha("#ffff" , 0.1),
+        // background: alpha(theme.palette.primary.main3 , 0.4),
+        background: theme.palette.primary.main3,
         // background: theme.palette.gradient.main,
 
 
@@ -227,6 +271,20 @@ const authStyle = makeStyles((theme) => ({
         // },
     },
 
+    eventFilterBlock :{
+        color: 'primary',
+        background: theme.palette.primary.main,
+    },
+
+    eventAvatar:{
+        color: theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.main4,
+    },
+
+    eventGridActionBtn :{
+        color: theme.palette.primary.main
+    },
+
     actionBtnGrid :{
         // padding: 4,
         // display: 'flex',
@@ -244,8 +302,8 @@ const authStyle = makeStyles((theme) => ({
 
     actionBtn :{
         display: 'flex',
-        background: theme.palette.primary.main3,
-        color: theme.palette.primary.main,
+        backgroundColor: '#06142e',
+        color: theme.palette.primary.main0,
     },
 
     actionBtnIcone :{
@@ -276,18 +334,51 @@ const authStyle = makeStyles((theme) => ({
     },
 
     eventSingle:{
-        background: alpha("#ffff" , 0.1),
+        // background: alpha("#ffff" , 0.1),
+        background: theme.palette.primary.main,
+        color: theme.palette.primary.main4,
         borderRadius: 50,
     },
 
     eventTitle: {
         fontSize: 17,
         fontWeight: 800,
+        color: theme.palette.primary.main0,
     },
 
     eventSubTitle:{
-        color:'#fcaf3c',
+        color:theme.palette.primary.main0,
         fontSize: 13
+    },
+
+    // Partenaire
+    PartnersBox : {
+        padding: 10,
+        margin: 30,
+        background: 'white',
+        borderRadius: 15,
+    }  ,
+    
+    PartnersLogo : {
+        height: '50px',
+        // width: '100px',
+    },
+
+    partnersGrid : {
+        
+        display: 'flex',
+        alignContent: 'center',
+    },
+    partnersTitle :{
+        fontSize: 50,
+        color: theme.palette.primary.main,
+        fontWeight: 600,
+    },
+
+    partnersDesc :{
+        fontSize: 30,
+        color: theme.palette.primary.main,
+        fontWeight: 100,
     }
 
     

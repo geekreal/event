@@ -50,7 +50,7 @@ axios.interceptors.request.use(function(config){
 });
 
 // axios.defaults.baseURL = "http://localhost:8000/";
-axios.defaults.baseURL = "https://ivenos.tecmatrix.net";
+axios.defaults.baseURL = "https://ivenos.fianumarket.com";
 
 // https://b84e-102-64-216-121.eu.ngrok.io
 // const theme= 
@@ -77,7 +77,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-        <div className={classes.container}>
+        <div className={classes.container} >
           <Router>
             <Switch>
               {/* <Route path='/' name="Home" component = {Home}/> */}

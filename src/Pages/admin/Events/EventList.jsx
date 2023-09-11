@@ -291,7 +291,7 @@ const EventList = () => {
             setRowSelect(ids);
           }}
           />
-      </div>
+        </div>
     </div>
   )
 }

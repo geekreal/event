@@ -35,6 +35,8 @@ import Header from '../components/client/navbar/Header';
 import Home from '../Pages/client/home/Home';
 import Content from '../components/client/Main/Content';
 import PayTicket from '../components/client/Main/PayTicket';
+import UserDashboard from '../Pages/client/auth/Dashboard';
+import MapView from '../Pages/client/Map/MapView';
 
 // Client 
 
@@ -48,8 +50,6 @@ import SendVerifyCode from '../Pages/client/emails/SendCodePage'
 import SendCodePage from '../Pages/client/emails/SendCodePage';
 
 // routes
-
-
 const routes = [ 
     {path: "/", exact: true,  name: 'Home' },
     {path: "/event", exact: true,  name: 'Accueil', component : Header},
@@ -61,6 +61,10 @@ const routes = [
     {path: "/event/user/profile", exact: true, name: 'UserProfile' , component: UserProfile},
     {path: "/event/ticket/gen", exact: true,  name: 'GenTicket', component: TicketGen},
 
+    {path: "/event/map/view/:id", exact: true,  name: 'MapView', component: MapView},
+
+    // dashboard 
+    {path: "/event/user/dashboard", exact: true, name: 'UserDashboard' , component: UserDashboard},
 
     // email
     {path: "/event/user/verify-email", exact: true, name: 'SendCodePage' , component: SendCodePage},

@@ -5,7 +5,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import { alpha, Card, CardActions, CardContent, CardHeader, CardMedia, Checkbox, Collapse, Fade, FormControlLabel, FormGroup, Grid, Icon, InputAdornment, Paper, Skeleton, Slide, TextField } from '@mui/material';
+import { alpha, Card, CardActions, CardContent, CardHeader, CardMedia, Checkbox, Collapse, Fade, FormControlLabel, FormGroup, Grid, Icon, InputAdornment, Paper, Skeleton, Slide, Stack, TextField } from '@mui/material';
 import {styled} from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import animWomen from '../../../assets/client/images/animWomenf.gif';
@@ -13,7 +13,7 @@ import bgAnim from '../../../assets/client/images/bgAnim.gif';
 import { InputUnstyled } from '@mui/base';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { MoreVert, Share , Favorite, ExpandMore, LocationCity, PlaceSharp, AirplaneTicket, GpsFixed, Read, ReadMoreMore, ReadMoreReadMore, ReadMore, BookOnline, MonetizationOn, Padding, Mic, PlaceOutlined, GolfCourse, FmdGood, FmdGoodOutlined, FreeBreakfast, MicExternalOn, Grade, LocalDining } from '@mui/icons-material';
+import { MoreVert, Share , Favorite, ExpandMore, LocationCity, PlaceSharp, AirplaneTicket, GpsFixed, Read, ReadMoreMore, ReadMoreReadMore, ReadMore, BookOnline, MonetizationOn, Padding, Mic, PlaceOutlined, GolfCourse, FmdGood, FmdGoodOutlined, FreeBreakfast, MicExternalOn, Grade, LocalDining, ArrowLeft, ArrowRight, IsoRounded, Apple, PhoneAndroid, Android, AndroidSharp, AndroidOutlined, StartOutlined, CreateOutlined } from '@mui/icons-material';
 import moment from 'moment';
 import 'moment/locale/fr';
 import useStyle from './ClientStyle';
@@ -26,6 +26,7 @@ import ticket from '../../../assets/client/images/ticket.png';
 import geo1 from '../../../assets/client/images/geo1.png';
 import geo from '../../../assets/client/images/geo.png';
 import events from '../../../assets/client/images/events.png';
+import shape1 from '../../../assets/client/images/Shape1.png';
 import contact from '../../../assets/client/images/contact.png';
 import { Check } from '@mui/icons-material';
 import EventSkelton from './EventSkelton';
@@ -56,6 +57,7 @@ import { Fragment } from 'react';
 import Start from './Start';
 import { useRef } from 'react';
 import ReactLoading from 'react-loading';
+import PartnersLists from '../Main/PartnersLists';
 
 const data = [
   {
@@ -105,26 +107,59 @@ const Header = () => {
     <Slide in={true} appear={false} direction='up' mountOnEnter unmountOnExit duration={30000}> 
       <div className={classes.imageHeader}>
         <Grid container columns={{ xs: 2, sm: 12, md: 12 }} className={classes.gridBack}>
-          <Grid item xs={6} className={classes.mainTitle}>
-            <div  className={classes.headerTitle} > 
+          <Grid item xs={6} className={classes.mainTitle} >
+            <div className={classes.headerTitle} > 
+            <Stack direction='row' spacing={2} sx={{marginBottom: 2, }}>
+                <Link to='/event/start' className={classes.navText}>
+                    <Button className={classes.downloadBtn} 
+                      variant='outlined' title='Application sur Play Store' size='small' >
+                          <IconButton color='primary' size='small'>
+                            Google PlayStore <Android sx={{marginLeft: 1}}/>
+                          </IconButton>
+                    </Button>
+                </Link>
+                <Link to='/event/start' className={classes.navText}>
+                    <Button className={classes.downloadBtn}
+                      variant='outlined' title='Application sur Play Store' size='small' >
+                        <IconButton color='primary' size='small'>
+                            Apple Store <Apple sx={{marginLeft: 1}}/>
+                        </IconButton>
+                    </Button>
+                </Link>
+            </Stack>
               Le monde est plus proche de vous
               <Typography 
-              sx={{color: "white" , 
-              lineHeight: 1, marginTop: 2,marginBottom: 4, 
-              fontSize: 25 , fontWeight: 100}}>
+                sx={{
+                lineHeight: 1, marginTop: 2,marginBottom: 4, 
+                fontSize: 25 , fontWeight: 100}} >
                 Nous sommes convaincus que participer aux évènements permet d'agrandir vos relations.
               </Typography>
               <div>
+              <Stack direction='row' spacing={2} sx={{marginBottom: 2, }}>
                 <Link to='/event/start' className={classes.navText}>
-                  <Button component={motion.button} 
-                  whileHover={{scale: 1.2, transition: { duration: 0.7 },}} 
-                  sx={{background: "#ED9A15"}}
-                    whileTap={{ scale: 0.9 }} variant='contained' title='Entrer' size='small' className={classes.startButton}>
-                    <div className={classes.startButtonText}>
-                      Commnencer
-                    </div>
-                  </Button>
+                    <Button component={motion.button} 
+                    whileHover={{scale: 1.1, transition: { duration: 0.2 },}} 
+                    // sx={{background: "#f1916d"}}
+                      whiletap={{ scale: 0.2 }} 
+                      variant='outlined' title='Continuer sur la version web' size='small' 
+                      className={classes.startButton}>
+                        <IconButton color='primary' size='large'>
+                            Commencer <StartOutlined sx={{marginLeft: 1}}/>
+                        </IconButton>
+                    </Button>
+                  </Link>
+                  <Link to='/event/start' className={classes.navText}>
+                    <Button  
+                    // sx={{background: "#f1916d"}}
+                      whiletap={{ scale: 0.2 }} 
+                      variant='contained' title='Organiser et inviter des personnes' size='small' 
+                      className={classes.createEventButton}>
+                        <IconButton color='primary' size='small'>
+                            Organiser <CreateOutlined sx={{marginLeft: 1}}/>
+                        </IconButton>
+                    </Button>
                 </Link>
+                </Stack>
               </div>
             </div>
           </Grid>
@@ -148,7 +183,7 @@ const Header = () => {
               <Grid item key={items.src}>
                 <Box sx={{ boxShadow: 4 }} className={classesBody.carrousel} >
                     <div className={classesBody.slideImg} style={{textAlign: 'center', alignContent: 'center',
-                    alignItems: 'center',}}>
+                    alignItems: 'center', }}>
                         <img className={classesBody.slideImg} src={items.src}/>
                     </div>
                   </Box>
@@ -171,26 +206,12 @@ const Header = () => {
                       </div>
                       </div>
                   </Box>
-              </Grid> */}
+              </Grid>  */}
 
-              {/* <Grid item>
-                  <Box sx={{ boxShadow: 4 }} className={classesBody.carrousel}>
-                      <div className={classesBody.slideImg}>
-                          <img className={classesBody.slideImg} src={geo}/>
-                      </div>
-                      <div className={classesBody.slideText}>
-                      <div className={classesBody.slideTitle}>
-                          Suivez litinereraire
-                      </div>
-                          <div className={classesBody.slideDesc}>
-                              Choisissez un évènement, proche ou non, suivez l'itinéraire en seul click, simple et éfficace
-                          </div>
-                      </div>
-                  </Box>
-              </Grid> */}
             </Grid>
-          </Grid>
+          </Grid> 
         </Grid>
+        
       </div>
     </Slide>
     </>

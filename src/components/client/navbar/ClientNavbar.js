@@ -96,8 +96,8 @@ const ClientNavBar = () => {
 
                 setSnackbarColor("success");
                 setOpenSnackbar(true);
-                setMessage(resp.data.message)
-                history.push('/event');
+                // setMessage(resp.data.message)
+                history.push('/');
 
             } else if(resp.data.status === 400) {
                 setSnackbarColor("error");
@@ -120,7 +120,7 @@ const ClientNavBar = () => {
   return (
     <>
 
-      <AppBar className={classes.appBar} elevation={0} position="static" >
+      <AppBar sx={{backgroundColor: 'transparent'}} className={classes.appBar} elevation={0} position="static" >
         {/* <div className={classes.header}> */}
           <Toolbar className={classes.toolBar}>
             <Typography
@@ -137,7 +137,7 @@ const ClientNavBar = () => {
             >
             
             <Link to='/event' className={classes.navText}>
-            <img src={Logo} height={70} sx={{marginTop: 50}}></img>
+            <img src={Logo} height={70} style={{ animation: 'ripple 4s linear infinite'}} ></img>
             </Link>
             </Typography>
             <Box className={classes.menusBox} sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -263,8 +263,8 @@ const ClientNavBar = () => {
                     <MenuItem key='partenariat' onClose={handleCloseUserMenu}>
                       <Link to='/event/action' className={classes.navText}>Devenir partenaire</Link>
                     </MenuItem>
-                    <MenuItem key='Profile' onClose={handleCloseUserMenu}>
-                      <Link to='/profile' className={classes.navText}>Compte</Link>
+                    <MenuItem key='Compte' onClose={handleCloseUserMenu}>
+                      <Link to='/event/user/dashboard' className={classes.navText}>Compte</Link>
                     </MenuItem>
                     <MenuItem key='Deconnexion' onClose={handleCloseUserMenu} onClick={logout}>
                       <Typography textAlign="center">Déconnexion</Typography>

@@ -26,7 +26,7 @@ const DistanceCalc = ({latitude1, longitude1, latitude2, longitude2}) => {
     // console.log("lat1" , latitude1, "long1", longitude1, "lat2" ,latitude2 , "long2" ,longitude2)
 
   return (
-    <div style={{display: 'flex', alignItems: 'center', alignContent:'center', color: 'white'}}><MapOutlined/>à {dist2} Km</div>
+    <div style={{display: 'flex', alignItems: 'center', alignContent:'center'}}><MapOutlined/>à {dist2} Km</div>
   )
 }
 
