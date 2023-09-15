@@ -53,7 +53,7 @@ const Login = () => {
         //config/'supports_credentials' => true, dans laravel
 
         axios.get('/sanctum/csrf-cookie').then(response =>{ 
-            axios.post(`/api/admin/login/`, data).then(resp => {
+            axios.post(`/api/admin/login`, data).then(resp => {
                 localStorage.setItem('redis_user_mail', loginInput.email);
 
                 if (resp.data.status === 200) {
